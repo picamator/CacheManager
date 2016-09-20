@@ -81,9 +81,9 @@ Documentation
 
 Developing
 ----------
-> in-progress, here should be
-> install dev. environment
-> use docker
+To configurate developing environment please:
+1. Run `composer install` 
+2. Follow [install and run Docker container](dev/docker/README.md)
 
 Contribution
 ------------
