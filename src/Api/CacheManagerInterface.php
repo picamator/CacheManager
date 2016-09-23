@@ -1,11 +1,12 @@
 <?php
 namespace Picamator\CacheManager\Api;
 
-use Picamator\CacheManager\Api\SearchCriteriaInterface;
-use Picamator\CacheManager\Api\Data\ContainerInterface;
+use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
+use Picamator\CacheManager\Api\Data\SearchResultInterface;
 
 /**
  * Facade over operations: _save_, _search_, and _invalidate_
+ * It's better to use Proxy over operations via DI for performance boost
  */
 interface CacheManagerInterface 
 {
@@ -24,15 +25,15 @@ interface CacheManagerInterface
 	 * 
 	 * @param SearchCriteriaInterface $searchCriteria
 	 * 
-	 * @return ContainerInterface
+	 * @return SearchResultInterface
 	 */
-	public function search(SearchCriteriaInterface $searchCriteria) : ContainerInterface;
+	public function search(SearchCriteriaInterface $searchCriteria) : SearchResultInterface;
 	
 	/**
-	 * Invlidate Cache
+	 * Invalidate Cache
 	 * 
 	 * @param SearchCriteriaInterface 	$searchCriteria
-	 * @param array 					$data
+	 * @param array                     $data
 	 * 
 	 * @return bool
 	 */

@@ -1,5 +1,5 @@
 <?php
-namespace Picamator\CacheManager\Api;
+namespace Picamator\CacheManager\Api\Data;
 
 /**
  * Abstraction over search query

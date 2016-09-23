@@ -1,7 +1,7 @@
 <?php
 namespace Picamator\CacheManager\Api\Operation;
 
-use Picamator\CacheManager\Api\SearchCriteriaInterface;
+use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 use Picamator\CacheManager\InvalidArgumentException;
 
 /**

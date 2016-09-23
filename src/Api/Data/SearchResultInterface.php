@@ -4,7 +4,7 @@ namespace Picamator\CacheManager\Api\Data;
 /**
  * Wrapper over search result, represents what data was getting from cache as well as what should be ask from API
  */
-interface ContainerInterface 
+interface SearchResultInterface
 {
 	/**
 	 * Retrieve data

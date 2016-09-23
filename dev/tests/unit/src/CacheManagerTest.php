@@ -2,7 +2,7 @@
 namespace Picamator\CacheManager\Tests\Unit;
 
 use Picamator\CacheManager\Tests\Unit\BaseTest;
-use Picamator\CacheManage\CacheManager;
+use Picamator\CacheManager\CacheManager;
 
 class CacheManagerTest extends BaseTest
 {	
@@ -42,10 +42,10 @@ class CacheManagerTest extends BaseTest
 		$this->operationInvalidateMock = $this->getMockBuilder('Picamator\CacheManager\Api\Operation\InvalidateInterface')
 			->getMock();
 		
-		$this->searchCriteriaMock = $this->getMockBuilder('Picamator\CacheManager\Api\Operation\SearchCriteriaInterface')
+		$this->searchCriteriaMock = $this->getMockBuilder('Picamator\CacheManager\Api\Data\SearchCriteriaInterface')
 			->getMock();	
 		
-		$this->cacheManager = new CacheManager($this->operationSave, $this->operationSearch, $this->operationInvalidate);
+		$this->cacheManager = new CacheManager($this->operationSaveMock, $this->operationSearchMock, $this->operationInvalidateMock);
 	}
 	
 	public function testSave() 
