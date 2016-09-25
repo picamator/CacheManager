@@ -1,15 +1,19 @@
 <?php
-namespace Picamator\CacheManager\Tests\Unit\Builder;
+namespace Picamator\CacheManager\Tests\Unit\Cache;
 
 use Picamator\CacheManager\Tests\Unit\BaseTest;
-use Picamator\CacheManager\Builder\CacheKey;
+use Picamator\CacheManager\Cache\KeyGenerator;
 
 class CacheKeyTest extends BaseTest
 {
-    /** @var CacheKey */
-    private $cacheKey;
+    /**
+     * @var CacheGenerator
+     */
+    private $cacheGenerator;
 
-    /** @var \Picamator\CacheManager\Api\Data\SearchCriteriaInterface | \PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var \Picamator\CacheManager\Api\Data\SearchCriteriaInterface | \PHPUnit_Framework_MockObject_MockObject
+     */
     private $searchCriteriaMock;
 
     protected function setUp()
@@ -19,18 +23,18 @@ class CacheKeyTest extends BaseTest
         $this->searchCriteriaMock = $this->getMockBuilder('Picamator\CacheManager\Api\Data\SearchCriteriaInterface')
             ->getMock();
 
-        $this->cacheKey = new CacheKey();
+        $this->cacheGenerator = new KeyGenerator();
     }
 
     /**
-     * @dataProvider providerBuild
+     * @dataProvider    providerGenerator
      *
      * @param int       $id
      * @param string    $entityName
      * @param string    $contextName
      * @param string    $expected
      */
-    public function testBuild(
+    public function testGenerator(
         int $id,
         string $entityName,
         string $contextName,
@@ -46,12 +50,12 @@ class CacheKeyTest extends BaseTest
             ->willReturn($contextName);
 
         // test result as well as duplication run
-        $this->cacheKey->build($id, $this->searchCriteriaMock);
-        $actual = $this->cacheKey->build($id, $this->searchCriteriaMock);
+        $this->cacheGenerator->generate($id, $this->searchCriteriaMock);
+        $actual = $this->cacheGenerator->generate($id, $this->searchCriteriaMock);
         $this->assertEquals($expected, $actual);
     }
 
-    public function providerBuild()
+    public function providerGenerator()
     {
         return [
             [1, 'customer', '', 'customer_1'],

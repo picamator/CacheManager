@@ -1,10 +1,10 @@
 <?php
-namespace Picamator\CacheManager\Exeption;
+namespace Picamator\CacheManager\Exception;
 
 /**
  * Runtime exception
  */
-class ExceptionInterface  extends \RuntimeException implements ExceptionInterface
+class RuntimeException extends \RuntimeException implements ExceptionInterface
 {
 	
 }

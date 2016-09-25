@@ -33,4 +33,11 @@ interface SearchCriteriaInterface
 	 * @return array
 	 */
 	public function getFieldList() : array;
+
+    /**
+     * Retrieve identifier name
+     *
+     * @return string
+     */
+    public function getIdName() : string;
 }

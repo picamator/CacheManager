@@ -31,20 +31,28 @@ class SearchCriteria implements SearchCriteriaInterface
     private $contextName;
 
     /**
+     * @var string
+     */
+    private $idName;
+
+    /**
      * @param string        $entityName
      * @param array         $idList
      * @param array         $fieldList
+     * @param string        $idName
      * @param string|null   $contextName
      */
     public function __construct(
         string $entityName,
         array $idList,
         array $fieldList,
+        string $idName,
         string $contextName = null
     ) {
         $this->entityName = $entityName;
         $this->idList = $idList;
         $this->fieldList = $fieldList;
+        $this->idName = $idName;
         $this->contextName = $contextName;
     }
 
@@ -78,5 +86,13 @@ class SearchCriteria implements SearchCriteriaInterface
     public function getFieldList() : array
     {
         return $this->fieldList;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIdName() : string
+    {
+        return $this->idName;
     }
 }

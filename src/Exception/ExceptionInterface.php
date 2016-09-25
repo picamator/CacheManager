@@ -1,5 +1,5 @@
 <?php
-namespace Picamator\CacheManager\Exeption;
+namespace Picamator\CacheManager\Exception;
 
 /**
  * Marker for package specific exception
