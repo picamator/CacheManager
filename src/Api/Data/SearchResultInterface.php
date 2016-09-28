@@ -9,7 +9,7 @@ interface SearchResultInterface
 	/**
 	 * Retrieve data
 	 * 
-	 * @return array
+	 * @return array of \Psr\Cache\CacheItemInterface as elements
 	 */
 	public function getData() : array;
 	

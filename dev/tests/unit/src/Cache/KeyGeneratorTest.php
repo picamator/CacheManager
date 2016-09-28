@@ -55,6 +55,29 @@ class CacheKeyTest extends BaseTest
         $this->assertEquals($expected, $actual);
     }
 
+    public function testGenerateList()
+    {
+        $idList = [1, 2, 3];
+
+        // search criteria mock
+        $this->searchCriteriaMock->expects($this->once())
+            ->method('getIdList')
+            ->willReturn($idList);
+
+        // cache key generator mock
+        /** @var \Picamator\CacheManager\Cache\KeyGenerator | \PHPUnit_Framework_MockObject_MockObject $cacheKeyGeneratorMock */
+        $cacheKeyGeneratorMock = $this->getMockBuilder('Picamator\CacheManager\Cache\KeyGenerator')
+            ->setMethods(['generate'])
+            ->getMock();
+
+        $cacheKeyGeneratorMock->expects($this->exactly(count($idList)))
+            ->method('generate');
+
+        $actual = $cacheKeyGeneratorMock->generateList($this->searchCriteriaMock);
+        $this->assertEquals($idList, array_keys($actual));
+
+    }
+
     public function providerGenerator()
     {
         return [

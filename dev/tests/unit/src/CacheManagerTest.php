@@ -1,7 +1,6 @@
 <?php
 namespace Picamator\CacheManager\Tests\Unit;
 
-use Picamator\CacheManager\Tests\Unit\BaseTest;
 use Picamator\CacheManager\CacheManager;
 
 class CacheManagerTest extends BaseTest

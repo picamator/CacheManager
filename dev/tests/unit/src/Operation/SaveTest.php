@@ -118,8 +118,9 @@ class SaveTest extends BaseTest
         return [
             [
                 [1, [], 2]
-            ],
-            [[['name' => 'Sergii'], ['id' => 1]]]
+            ], [
+                [['name' => 'Sergii'], ['id' => 1]]
+            ]
         ];
     }
 }

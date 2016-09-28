@@ -3,6 +3,7 @@ namespace Picamator\CacheManager\Api;
 
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 use Picamator\CacheManager\Api\Data\SearchResultInterface;
+use Picamator\CacheManager\Exception\InvalidCacheKeyException;
 
 /**
  * Facade over operations: _save_, _search_, and _invalidate_
@@ -26,6 +27,8 @@ interface CacheManagerInterface
 	 * @param SearchCriteriaInterface $searchCriteria
 	 * 
 	 * @return SearchResultInterface
+     *
+     * @throws InvalidCacheKeyException
 	 */
 	public function search(SearchCriteriaInterface $searchCriteria) : SearchResultInterface;
 	
@@ -33,7 +36,6 @@ interface CacheManagerInterface
 	 * Invalidate Cache
 	 * 
 	 * @param SearchCriteriaInterface 	$searchCriteria
-	 * @param array                     $data
 	 * 
 	 * @return bool
 	 */

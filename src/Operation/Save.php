@@ -4,9 +4,9 @@ declare(strict_types = 1);
 namespace Picamator\CacheManager\Operation;
 
 use Picamator\CacheManager\Api\Cache\CacheItemFactoryInterface;
+use Picamator\CacheManager\Api\Cache\KeyGeneratorInterface;
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 use Picamator\CacheManager\Api\Operation\SaveInterface;
-use Picamator\CacheManager\Cache\KeyGenerator;
 use Picamator\CacheManager\Exception\InvalidArgumentException;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -16,7 +16,7 @@ use Psr\Cache\CacheItemPoolInterface;
 class Save implements SaveInterface
 {
     /**
-     * @var KeyGenerator
+     * @var KeyGeneratorInterface
      */
     private $keyGenerator;
 
@@ -31,12 +31,12 @@ class Save implements SaveInterface
     private $cacheItemFactory;
 
     /**
-     * @param KeyGenerator              $keyGenerator
+     * @param KeyGeneratorInterface     $keyGenerator
      * @param CacheItemPoolInterface    $cacheItemPool
      * @param CacheItemFactoryInterface $cacheItemFactory
      */
     public function __construct(
-        KeyGenerator $keyGenerator,
+        KeyGeneratorInterface $keyGenerator,
         CacheItemPoolInterface $cacheItemPool,
         CacheItemFactoryInterface $cacheItemFactory
     ) {

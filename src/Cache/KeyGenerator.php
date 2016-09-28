@@ -38,4 +38,17 @@ class KeyGenerator implements KeyGeneratorInterface
 
         return $this->generateContainer[$id];
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generateList(SearchCriteriaInterface $searchCriteria) : array
+    {
+        $result = [];
+        foreach ($searchCriteria->getIdList() as $item) {
+            $result[$item] = $this->generate($item, $searchCriteria);
+        }
+
+        return $result;
+    }
 }
