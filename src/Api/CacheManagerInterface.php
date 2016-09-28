@@ -36,8 +36,8 @@ interface CacheManagerInterface
 	 * Invalidate Cache
 	 * 
 	 * @param SearchCriteriaInterface 	$searchCriteria
-	 * 
-	 * @return bool
+     *
+     * @throws InvalidCacheKeyException
 	 */
-	public function invalidate(SearchCriteriaInterface $searchCriteria) : bool;
+	public function invalidate(SearchCriteriaInterface $searchCriteria);
 }

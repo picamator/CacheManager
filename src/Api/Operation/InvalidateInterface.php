@@ -9,11 +9,11 @@ use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 interface InvalidateInterface
 {
 	/**
-	 * Invlidate Cache
+	 * Invalidate Cache
 	 * 
 	 * @param SearchCriteriaInterface $searchCriteria
-	 * 
-	 * @return bool
+     *
+     * @throws InvalidCacheKeyException
 	 */
-	public function invalidate(SearchCriteriaInterface $searchCriteria) : bool;
+	public function invalidate(SearchCriteriaInterface $searchCriteria);
 }

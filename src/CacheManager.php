@@ -66,7 +66,7 @@ class CacheManager implements CacheManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function invalidate(SearchCriteriaInterface $searchCriteria) : bool
+    public function invalidate(SearchCriteriaInterface $searchCriteria)
     {
         return $this->operationInvalidate->invalidate($searchCriteria);
     }
