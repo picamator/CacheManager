@@ -1,9 +1,16 @@
 CacheManager
 ============
+
+[![Latest Stable Version](https://poser.pugx.org/picamator/cachemanager/v/stable.svg)](https://packagist.org/packages/picamator/cachemanager)
+[![License](https://poser.pugx.org/picamator/cachemanager/license.svg)](https://packagist.org/packages/picamator/cachemanager)
+[![Build Status](https://travis-ci.org/picamator/CacheManager.svg?branch=master)](https://travis-ci.org/picamator/CacheManager)
+[![Coverage Status](https://img.shields.io/coveralls/picamator/CacheManager.svg)](https://coveralls.io/r/picamator/CacheManager?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca/mini.png)](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca)
+
 CacheManager is an application providing wrapper over 3-rd party cache libraries by extending them to save API's search results.
 
 The general approach to save search response building cache key as a hash of search query.
-But that aproach is not working for two slightly different queries. Moreover it's failed to combine data from cache and server. Therefore CacheManager solves those problems for special cases such as searching by id or ids.
+But that approach is not working for two slightly different queries. Moreover it's failed to combine data from cache and server. Therefore CacheManager solves those problems for special cases such as searching by id or ids.
 
 Cache libraries
 ---------------

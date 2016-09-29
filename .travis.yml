@@ -1,0 +1,14 @@
+language: php
+php:
+  - "7.0"
+
+before_script:
+  - composer require --no-update satooshi/php-coveralls:dev-master
+  - composer install
+
+script:
+  - mkdir -p build/logs
+  - phpunit -c dev/tests/unit/phpunit.xml.dist --coverage-clover build/logs/clover.xml
+
+after_script:
+  - php vendor/bin/coveralls
