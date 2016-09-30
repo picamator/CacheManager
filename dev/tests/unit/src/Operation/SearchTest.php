@@ -66,11 +66,15 @@ class SearchTest extends BaseTest
 
         // cache generator mock
         $this->keyGeneratorMock->expects($this->once())
-            ->method('generateList')
-            ->with($this->equalTo($this->searchCriteriaMock))
-            ->willReturn([$id => $cacheKey]);
+            ->method('generate')
+            ->with($this->equalTo($id), $this->equalTo($this->searchCriteriaMock))
+            ->willReturn($cacheKey);
 
         // search criteria mock
+        $this->searchCriteriaMock->expects($this->once())
+            ->method('getIdList')
+            ->willReturn([$id]);
+
         $this->searchCriteriaMock->expects($this->once())
             ->method('getFieldList')
             ->willReturn($fieldList);
@@ -111,11 +115,15 @@ class SearchTest extends BaseTest
 
         // cache generator mock
         $this->keyGeneratorMock->expects($this->once())
-            ->method('generateList')
-            ->with($this->equalTo($this->searchCriteriaMock))
-            ->willReturn([$id => $cacheKey]);
+            ->method('generate')
+            ->with($this->equalTo($id), $this->equalTo($this->searchCriteriaMock))
+            ->willReturn($cacheKey);
 
         // search criteria mock
+        $this->searchCriteriaMock->expects($this->once())
+            ->method('getIdList')
+            ->willReturn([$id]);
+
         $this->searchCriteriaMock->expects($this->once())
             ->method('getFieldList')
             ->willReturn($fieldList);
@@ -154,11 +162,16 @@ class SearchTest extends BaseTest
         $cacheKey = 'internal_customer_1';
         $id = 1;
 
+        // search criteria mock
+        $this->searchCriteriaMock->expects($this->once())
+            ->method('getIdList')
+            ->willReturn([$id]);
+
         // cache generator mock
         $this->keyGeneratorMock->expects($this->once())
-            ->method('generateList')
-            ->with($this->equalTo($this->searchCriteriaMock))
-            ->willReturn([$id => $cacheKey]);
+            ->method('generate')
+            ->with($this->equalTo($id), $this->equalTo($this->searchCriteriaMock))
+            ->willReturn($cacheKey);
 
         // cache item pool mock
         $exception = new class extends \RuntimeException implements PsrCacheInvalidArgumentException {};

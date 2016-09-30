@@ -74,8 +74,8 @@ class CacheKeyTest extends BaseTest
             ->method('generate');
 
         $actual = $cacheKeyGeneratorMock->generateList($this->searchCriteriaMock);
-        $this->assertEquals($idList, array_keys($actual));
-
+        $this->assertNotEmpty($actual);
+        $this->assertCount(count($idList), $actual);
     }
 
     public function providerGenerator()

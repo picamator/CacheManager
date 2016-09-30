@@ -84,11 +84,11 @@ class Search implements SearchInterface
      */
     private function getCacheItemList(SearchCriteriaInterface $searchCriteria) : array
     {
-        $cacheKeyList = $this->keyGenerator->generateList($searchCriteria);
         $result = [];
         try {
-            foreach ($cacheKeyList as $key => $value) {
-                $result[$key] = $this->cacheItemPool->getItem($value);
+            foreach ($searchCriteria->getIdList() as $item) {
+                $cacheKey = $this->keyGenerator->generate($item, $searchCriteria);
+                $result[$item] = $this->cacheItemPool->getItem($cacheKey);
             }
         } catch (PsrCacheInvalidArgumentException $e) {
             throw new InvalidCacheKeyException($e->getMessage(), $e->getCode());

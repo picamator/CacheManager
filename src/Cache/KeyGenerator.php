@@ -46,7 +46,7 @@ class KeyGenerator implements KeyGeneratorInterface
     {
         $result = [];
         foreach ($searchCriteria->getIdList() as $item) {
-            $result[$item] = $this->generate($item, $searchCriteria);
+            $result[] = $this->generate($item, $searchCriteria);
         }
 
         return $result;

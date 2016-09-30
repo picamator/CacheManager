@@ -19,11 +19,11 @@ interface KeyGeneratorInterface
     public function generate(int $id, SearchCriteriaInterface $searchCriteria) : string;
 
     /**
-     * Generate cache list
+     * Generate cache key list
      *
      * @param SearchCriteriaInterface $searchCriteria
      *
-     * @return array each keys SHOULD be an entity identifier the value SHOULD be a cache key
+     * @return array
      */
     public function generateList(SearchCriteriaInterface $searchCriteria) : array;
 }

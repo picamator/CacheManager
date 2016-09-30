@@ -51,7 +51,6 @@ class Invalidate implements InvalidateInterface
     {
         $cacheKeyList = $this->keyGenerator->generateList($searchCriteria);
         try {
-
             $cacheItemList = $this->cacheItemPool->getItems($cacheKeyList);
         } catch (PsrCacheInvalidArgumentException $e) {
             throw new InvalidCacheKeyException($e->getMessage(), $e->getCode());
