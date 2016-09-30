@@ -1,8 +1,6 @@
 <?php
 namespace Picamator\CacheManager\Spi;
 
-use Picamator\CacheManager\Spi\ObserverInterface;
-
 /**
  * Subject as a part observer pattern implementation
  */
