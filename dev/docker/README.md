@@ -32,7 +32,7 @@ SSH
 ---
 Please use credentials bellow to connect to container via ssh:
 1. user: root
-2. password: ssh
+2. password: screencast
 
 Configuration IDE (PhpStorm)
 ---------------------------- 

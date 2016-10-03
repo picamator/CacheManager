@@ -7,7 +7,7 @@ CacheManager
 [![Coverage Status](https://img.shields.io/coveralls/picamator/CacheManager.svg)](https://coveralls.io/r/picamator/CacheManager?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca/mini.png)](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca)
 
-CacheManager is an application providing wrapper over 3-rd party cache libraries by extending them to save API's search results.
+CacheManager is an application providing wrapper over 3-rd party cache libraries optimizing for saving API's search results.
 
 The general approach to save search response building cache key as a hash of search query.
 But that approach is not working for two slightly different queries. Moreover it's failed to combine data from cache and server. Therefore CacheManager solves those problems for special cases such as searching by id or ids.
@@ -165,8 +165,9 @@ Documentation
 Developing
 ----------
 To configure developing environment please:
-1. Run `composer install` 
-2. Follow [install and run Docker container](dev/docker/README.md)
+
+1. Follow [install and run Docker container](dev/docker/README.md)
+2. Run inside project root in the Docker container `composer install` 
 
 Contribution
 ------------

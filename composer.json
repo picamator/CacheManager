@@ -18,7 +18,9 @@
         ]
     },
     "autoload-dev": {
-        "psr-4": { "Picamator\\CacheManager\\Tests\\Unit\\": "dev/tests/unit/src" }
+        "psr-4": {
+            "Picamator\\CacheManager\\Tests\\Unit\\": "dev/tests/unit/src"
+        }
     },
     "minimum-stability": "stable",
     "require": {
