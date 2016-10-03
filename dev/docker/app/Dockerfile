@@ -6,6 +6,7 @@ RUN apt-get update
 RUN apt-get -y install php7.0
 RUN apt-get -y install php7.0-xml
 RUN apt-get -y install php7.0-curl
+RUN apt-get -y install php7.0-zip
 
 # git
 RUN apt-get -y install git
