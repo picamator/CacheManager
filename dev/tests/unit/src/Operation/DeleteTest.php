@@ -2,13 +2,13 @@
 namespace Picamator\CacheManager\Test\Unit\Operation;
 
 use Picamator\CacheManager\Tests\Unit\BaseTest;
-use Picamator\CacheManager\Operation\Invalidate;
+use Picamator\CacheManager\Operation\Delete;
 use Psr\Cache\InvalidArgumentException as PsrCacheInvalidArgumentException;
 
-class InvalidateTest extends BaseTest
+class deleteTest extends BaseTest
 {
     /**
-     * @var Invalidate
+     * @var Delete
      */
     private $operation;
 
@@ -41,13 +41,13 @@ class InvalidateTest extends BaseTest
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->operation = new Invalidate(
+        $this->operation = new Delete(
             $this->keyGeneratorMock,
             $this->cacheItemPoolMock
         );
     }
 
-    public function testInvalidate()
+    public function testDelete()
     {
         $cacheKeyList = [1 =>'internal_customer_1'];
 
@@ -62,13 +62,13 @@ class InvalidateTest extends BaseTest
             ->method('deleteItems')
             ->willReturn($cacheKeyList);
 
-        $this->operation->invalidate($this->searchCriteriaMock);
+        $this->operation->delete($this->searchCriteriaMock);
     }
 
     /**
      * @expectedException \Picamator\CacheManager\Exception\InvalidCacheKeyException
      */
-    function testInvalidKeyCacheSearch()
+    function testDeleteKeyCacheSearch()
     {
         $cacheKeyList = [1 =>'internal_customer_1'];
 
@@ -85,6 +85,6 @@ class InvalidateTest extends BaseTest
             ->method('deleteItems')
             ->willThrowException($exception);
 
-        $this->operation->invalidate($this->searchCriteriaMock);
+        $this->operation->delete($this->searchCriteriaMock);
     }
 }

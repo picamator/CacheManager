@@ -33,11 +33,11 @@ interface CacheManagerInterface
 	public function search(SearchCriteriaInterface $searchCriteria) : SearchResultInterface;
 	
 	/**
-	 * Invalidate Cache
+	 * Delete items from Cache
 	 * 
 	 * @param SearchCriteriaInterface 	$searchCriteria
      *
      * @throws InvalidCacheKeyException
 	 */
-	public function invalidate(SearchCriteriaInterface $searchCriteria);
+	public function delete(SearchCriteriaInterface $searchCriteria);
 }

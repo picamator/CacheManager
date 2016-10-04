@@ -9,7 +9,7 @@ use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 
 use Picamator\CacheManager\Api\Operation\SaveInterface;
 use \Picamator\CacheManager\Api\Operation\SearchInterface;
-use \Picamator\CacheManager\Api\Operation\InvalidateInterface;
+use \Picamator\CacheManager\Api\Operation\DeleteInterface;
 
 /**
  * Facade over operations: _save_, _search_, and _invalidate_
@@ -18,33 +18,33 @@ use \Picamator\CacheManager\Api\Operation\InvalidateInterface;
 class CacheManager implements CacheManagerInterface
 {
     /**
-     * @var \Picamator\CacheManager\Api\Operation\SaveInterface
+     * @var SaveInterface
      */
     private $operationSave;
 
     /**
-     * @var \Picamator\CacheManager\Api\Operation\SearchInterface
+     * @var SearchInterface
      */
     private $operationSearch;
 
     /**
-     * @var \Picamator\CacheManager\Api\Operation\InvalidateInterface
+     * @var DeleteInterface
      */
-    private $operationInvalidate;
+    private $operationDelete;
 
     /**
      * @param SaveInterface         $operationSave
      * @param SearchInterface       $operationSearch
-     * @param InvalidateInterface   $operationInvalidate
+     * @param DeleteInterface       $operationDelete
      */
     public function __construct(
         SaveInterface $operationSave,
         SearchInterface $operationSearch,
-        InvalidateInterface $operationInvalidate
+        DeleteInterface $operationDelete
     ) {
         $this->operationSave = $operationSave;
         $this->operationSearch = $operationSearch;
-        $this->operationInvalidate = $operationInvalidate;
+        $this->operationDelete = $operationDelete;
     }
 
     /**
@@ -66,8 +66,8 @@ class CacheManager implements CacheManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function invalidate(SearchCriteriaInterface $searchCriteria)
+    public function delete(SearchCriteriaInterface $searchCriteria)
     {
-        return $this->operationInvalidate->invalidate($searchCriteria);
+        return $this->operationDelete->delete($searchCriteria);
     }
 }

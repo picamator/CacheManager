@@ -65,11 +65,11 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
      *
      * Events: beforeInvalidate, afterInvalidate
      */
-    public function invalidate(SearchCriteriaInterface $searchCriteria)
+    public function delete(SearchCriteriaInterface $searchCriteria)
     {
-        $this->notify('beforeInvalidate');
-        $result = $this->cacheManager->invalidate($searchCriteria);
-        $this->notify('afterInvalidate');
+        $this->notify('beforeDelete');
+        $result = $this->cacheManager->delete($searchCriteria);
+        $this->notify('afterDelete');
 
         return $result;
     }

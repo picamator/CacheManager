@@ -34,7 +34,7 @@ class CacheManagerSubjectTest extends BaseTest
 
         $this->cacheManagerSubjectMock = $this->getMockBuilder('Picamator\CacheManager\CacheManagerSubject')
             ->setConstructorArgs([$this->cacheManagerMock])
-            ->setMethodsExcept(['save', 'search', 'invalidate'])
+            ->setMethodsExcept(['save', 'search', 'delete'])
             ->getMock();
 
         $this->searchCriteriaMock = $this->getMockBuilder('Picamator\CacheManager\Api\Data\SearchCriteriaInterface')
@@ -77,21 +77,21 @@ class CacheManagerSubjectTest extends BaseTest
         $this->cacheManagerSubjectMock->search($this->searchCriteriaMock);
     }
 
-    public function testInvalidate()
+    public function testDelete()
     {
         // cache manager subject mock
         $this->cacheManagerSubjectMock->expects($this->exactly(2))
             ->method('notify')
             ->withConsecutive(
-                [$this->equalTo('beforeInvalidate')],
-                [$this->equalTo('afterInvalidate')]
+                [$this->equalTo('beforeDelete')],
+                [$this->equalTo('afterDelete')]
             );
 
         // cache manager mock
         $this->cacheManagerMock->expects($this->once())
-            ->method('invalidate');
+            ->method('delete');
 
-        $this->cacheManagerSubjectMock->invalidate($this->searchCriteriaMock);
+        $this->cacheManagerSubjectMock->delete($this->searchCriteriaMock);
     }
 
     public function testNotify()

@@ -4,16 +4,16 @@ namespace Picamator\CacheManager\Api\Operation;
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 
 /**
- * Invalidate operation
+ * Delete operation
  */
-interface InvalidateInterface
+interface DeleteInterface
 {
 	/**
-	 * Invalidate Cache
+	 * Delete items from Cache
 	 * 
 	 * @param SearchCriteriaInterface $searchCriteria
      *
      * @throws InvalidCacheKeyException
 	 */
-	public function invalidate(SearchCriteriaInterface $searchCriteria);
+	public function delete(SearchCriteriaInterface $searchCriteria);
 }

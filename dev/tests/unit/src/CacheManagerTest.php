@@ -21,9 +21,9 @@ class CacheManagerTest extends BaseTest
 	private $operationSearchMock;
 	
 	/**
-	 * @var \Picamator\CacheManager\Api\Operation\InvalidateInterface | \PHPUnit_Framework_MockObject_MockObject
+	 * @var \Picamator\CacheManager\Api\Operation\DeleteInterface | \PHPUnit_Framework_MockObject_MockObject
 	 */
-	private $operationInvalidateMock;
+	private $operationDeleteMock;
 	
 	/**
 	 * @var \Picamator\CacheManager\Api\Operation\SearchCriteriaInterface | \PHPUnit_Framework_MockObject_MockObject
@@ -38,13 +38,13 @@ class CacheManagerTest extends BaseTest
 			->getMock();
 		$this->operationSearchMock = $this->getMockBuilder('Picamator\CacheManager\Api\Operation\SearchInterface')
 			->getMock();
-		$this->operationInvalidateMock = $this->getMockBuilder('Picamator\CacheManager\Api\Operation\InvalidateInterface')
+		$this->operationDeleteMock = $this->getMockBuilder('Picamator\CacheManager\Api\Operation\DeleteInterface')
 			->getMock();
 		
 		$this->searchCriteriaMock = $this->getMockBuilder('Picamator\CacheManager\Api\Data\SearchCriteriaInterface')
 			->getMock();	
 		
-		$this->cacheManager = new CacheManager($this->operationSaveMock, $this->operationSearchMock, $this->operationInvalidateMock);
+		$this->cacheManager = new CacheManager($this->operationSaveMock, $this->operationSearchMock, $this->operationDeleteMock);
 	}
 	
 	public function testSave() 
@@ -69,13 +69,13 @@ class CacheManagerTest extends BaseTest
         $this->cacheManager->search($this->searchCriteriaMock);
     }
 
-    public function testInvalidate()
+    public function testDelete()
     {
-        // operation invalidate mock
-        $this->operationInvalidateMock->expects($this->once())
-            ->method('invalidate')
+        // operation delete mock
+        $this->operationDeleteMock->expects($this->once())
+            ->method('delete')
             ->with($this->equalTo($this->searchCriteriaMock));
 
-        $this->cacheManager->invalidate($this->searchCriteriaMock);
+        $this->cacheManager->delete($this->searchCriteriaMock);
     }
 }

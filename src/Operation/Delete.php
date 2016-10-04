@@ -5,15 +5,15 @@ namespace Picamator\CacheManager\Operation;
 
 use Picamator\CacheManager\Api\Cache\KeyGeneratorInterface;
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
-use Picamator\CacheManager\Api\Operation\InvalidateInterface;
+use Picamator\CacheManager\Api\Operation\DeleteInterface;
 use Picamator\CacheManager\Exception\InvalidCacheKeyException;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException as PsrCacheInvalidArgumentException;
 
 /**
- * Invalidate operation
+ * Delete operation
  */
-class Invalidate implements InvalidateInterface
+class Delete implements DeleteInterface
 {
     /**
      * @var KeyGeneratorInterface
@@ -40,7 +40,7 @@ class Invalidate implements InvalidateInterface
     /**
      * {@inheritdoc}
      */
-    public function invalidate(SearchCriteriaInterface $searchCriteria)
+    public function delete(SearchCriteriaInterface $searchCriteria)
     {
         $cacheKeyList = $this->keyGenerator->generateList($searchCriteria);
         try {
