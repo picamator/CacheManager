@@ -26,11 +26,6 @@ class Invalidate implements InvalidateInterface
     private $cacheItemPool;
 
     /**
-     * @var \DateTime
-     */
-    private $currentTime;
-
-    /**
      * @param KeyGeneratorInterface     $keyGenerator
      * @param CacheItemPoolInterface    $cacheItemPool
      */
@@ -40,8 +35,6 @@ class Invalidate implements InvalidateInterface
     ) {
         $this->keyGenerator = $keyGenerator;
         $this->cacheItemPool = $cacheItemPool;
-
-        $this->currentTime = new \DateTime();
     }
 
     /**
@@ -51,14 +44,9 @@ class Invalidate implements InvalidateInterface
     {
         $cacheKeyList = $this->keyGenerator->generateList($searchCriteria);
         try {
-            $cacheItemList = $this->cacheItemPool->getItems($cacheKeyList);
+            $this->cacheItemPool->deleteItems($cacheKeyList);
         } catch (PsrCacheInvalidArgumentException $e) {
             throw new InvalidCacheKeyException($e->getMessage(), $e->getCode());
-        }
-
-        /** @var \Psr\Cache\CacheItemInterface $item */
-        foreach ($cacheItemList as $item) {
-            $item->expiresAt($this->currentTime);
         }
     }
 }

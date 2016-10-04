@@ -49,26 +49,18 @@ class InvalidateTest extends BaseTest
 
     public function testInvalidate()
     {
-        $cacheKey = 'internal_customer_1';
-        $id = 1;
+        $cacheKeyList = [1 =>'internal_customer_1'];
 
         // cache generator mock
         $this->keyGeneratorMock->expects($this->once())
             ->method('generateList')
             ->with($this->equalTo($this->searchCriteriaMock))
-            ->willReturn([$id => $cacheKey]);
-
-        // cache item mock
-        $cacheItemMock = $this->getMockBuilder('Psr\Cache\CacheItemInterface')
-            ->getMock();
-
-        $cacheItemMock->expects($this->once())
-            ->method('expiresAt');
+            ->willReturn($cacheKeyList);
 
         // cache item pool mock
         $this->cacheItemPoolMock->expects($this->once())
-            ->method('getItems')
-            ->willReturn([$cacheItemMock]);
+            ->method('deleteItems')
+            ->willReturn($cacheKeyList);
 
         $this->operation->invalidate($this->searchCriteriaMock);
     }
@@ -78,20 +70,19 @@ class InvalidateTest extends BaseTest
      */
     function testInvalidKeyCacheSearch()
     {
-        $cacheKey = 'internal_customer_1';
-        $id = 1;
+        $cacheKeyList = [1 =>'internal_customer_1'];
 
         // cache generator mock
         $this->keyGeneratorMock->expects($this->once())
             ->method('generateList')
             ->with($this->equalTo($this->searchCriteriaMock))
-            ->willReturn([$id => $cacheKey]);
+            ->willReturn($cacheKeyList);
 
         // cache item pool mock
         $exception = new class extends \RuntimeException implements PsrCacheInvalidArgumentException {};
 
         $this->cacheItemPoolMock->expects($this->once())
-            ->method('getItems')
+            ->method('deleteItems')
             ->willThrowException($exception);
 
         $this->operation->invalidate($this->searchCriteriaMock);
