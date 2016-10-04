@@ -4,7 +4,7 @@ namespace Picamator\CacheManager\Tests\Unit;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Base to share configuratior over all tests
+ * Base to share configuration over all tests
  */
 abstract class BaseTest extends TestCase 
 {

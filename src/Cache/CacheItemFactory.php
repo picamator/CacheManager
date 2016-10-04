@@ -34,6 +34,10 @@ class CacheItemFactory implements CacheItemFactoryInterface
      */
     public function create(string $key, array $value) : CacheItemInterface
     {
-        return $this->objectManager->create(self::$objectName, [$key, null, $value]);
+        /** @var \Cache\Adapter\Common\CacheItem $cacheItem */
+        $cacheItem = $this->objectManager->create(self::$objectName, [$key])
+            ->set($value);
+
+        return $cacheItem;
     }
 }

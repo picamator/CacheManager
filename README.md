@@ -7,7 +7,7 @@ CacheManager
 [![Coverage Status](https://img.shields.io/coveralls/picamator/CacheManager.svg)](https://coveralls.io/r/picamator/CacheManager?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca/mini.png)](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca)
 
-CacheManager is an application providing wrapper over 3-rd party cache libraries optimizing for saving API's search results.
+CacheManager is an application providing wrapper over 3-rd party cache libraries optimizing for saving RESTful API's or SQL search results.
 
 The general approach to save search response building cache key as a hash of search query.
 But that approach is not working for two slightly different queries. Moreover it's failed to combine data from cache and server. Therefore CacheManager solves those problems for special cases such as searching by id or ids.
@@ -37,46 +37,67 @@ Installation
 
 Specification
 --------------
-Assume application works with API, where:
-* `myEntity` - entity name
+### RESTful API
+Assume application works with RESTful API, where:
+* `cutomer` - entity name
 * `query`- parameter to save search criteria
 * `IN` - function similar to MySQL IN
 * `fields` - parameter with comma separated entities fields
 
-Each of the samples below shows pair of API requests that runs one after another. 
+Each of the samples below shows pair of API requests that runs one after another or during one application request circle. 
 
-### Sample 1
-1. `myEntity\?query="id IN(1,2,3)&fields='name,address'"`
-2. `myEntity\?query="id IN(1,2)&fields='name'"`
+#### Sample 1
+1. `GET: customer\?query="id IN(1,2,3)&fields='name,address'"`
+2. `GET: customer\?query="id IN(1,2)&fields='name'"`
 
-The second request SHOULD use cache because it already has information about `myEntity` with ids 1 and 2.
+The second request SHOULD use cache because it has already had information about `customer` with ids 1 and 2.
 
-### Sample 2
-1. `myEntity\?query="id IN(1,2,3)&fields='name'"`
-2. `myEntity\?query="id IN(1,2)&fields='name,address'"`
+#### Sample 2
+1. `GET: customer\?query="id IN(1,2,3)&fields='name'"`
+2. `GET: customer\?query="id IN(1,2)&fields='name,address'"`
 
-The second request SHOULD NOT use cache because it asks more information about `myEntity` that is in the cache.
-Therefore after obtaining data from server response SHOULD be saved in cache overriding the previously saved data.
+The second request SHOULD NOT use cache because it asks more information about `customer` that was saved in the cache.
+Therefore after obtained data from server the server response SHOULD be saved in cache overriding the previously saved data.
 
-### Sample 3
-1. `myEntity\?query="id IN(1,2,3)&fields='name,address'"`
-2. `myEntity\?query="id IN(3,4)&fields='name'"`
+#### Sample 3
+1. `GET: customer\?query="id IN(1,2,3)&fields='name,address'"`
+2. `GET: customer\?query="id IN(3,4)&fields='name'"`
 
-The second query SHOULD use cache for `myEntity` with id 3 and application SHOULD get only information about id 4.
+The second query SHOULD use cache for `customer` with id 3 and application SHOULD get only information about id 4.
+
+### SQL
+Let's application use MySQL with:
+* `customer` - table
+* `id`, `name`, and `address` - columns in `customer` table
+
+Each of SQL queries in samples bellow runs one after another or during one application request circle.
+SQL samples SHOULD behavior similar to corresponding RESTful API samples.
+
+#### Sample 1
+1. `SELECT name, address FROM customer WHERE id IN(1,2,3)`
+2. `SELECT name FROM customer WHERE id IN(1,2)`
+
+#### Sample 2
+1. `SELECT name FROM customer WHERE id IN(1,2,3)`
+2. `SELECT name, address FROM customer WHERE id IN(1,2)`
+
+#### Sample 3
+1. `SELECT name, address FROM customer WHERE id IN(1,2,3)`
+2. `SELECT name FROM customer WHERE id IN(3,4)`
 
 Usage
 -----
 ### Memcached
-The repository [MemcachedManager](https://github.com/picamator/MemcachedManager) is an example to use CacheManager with [Memcached](https://memcached.org/).
+[MemcachedManager](https://github.com/picamator/MemcachedManager) is an example to use CacheManager with [Memcached](https://memcached.org/).
 
 ### Custom implementation
-To start using CacheManager it's need to implement interface:
+To start using CacheManager it's need to implement:
 * `Psr\Cache\CacheItemPoolInterface `
 
-and optionally SPI interface:
+and optionally SPI:
 * `Spi\ObserverInterface`
 
-There is code sample bellow, it's illustrate example in live please use DI library to build dependencies.
+There is code sample bellow as illustrative example, in live please use DI library to build dependencies.
 
 ```php
 <?php
@@ -138,10 +159,10 @@ $searchCriteria = new SearchCriteria(
 $searchResult = $cacheManagerSubject->search($searchCriteria);
 
 // result api details
-$searchResult->count(); // number of returned data from cache e.g. 2
-$searchResult->getData(); // array of cache items
+$searchResult->count();         // number of returned data from cache e.g. 2
+$searchResult->getData();       // array of cache items
 $searchResult->getMissedData(); // array of missed in cache id's e.g. [1]
-$searchResult->hasData(); // boolean to show does something fit $searchCriteria in cache
+$searchResult->hasData();       // boolean to show does something fit $searchCriteria in cache
 
 ```
 
@@ -150,7 +171,6 @@ Pitfalls
 > @todo in-progress, it's about
 > invalidation, pagination over mixed sources API and cache
 > how to deal with different API sources and identical entities
-> how apply CacheManager for Databases
 
 Documentation
 -------------
@@ -158,7 +178,6 @@ Documentation
 
 > @todo in-progress, it's about
 > link to wiki with API & SPI details
-> link to phpclasses
 
 Developing
 ----------

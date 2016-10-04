@@ -37,9 +37,14 @@ class CacheItemFactoryTest extends BaseTest
             ->disableOriginalConstructor()
             ->getMock();
 
+        $cacheItemMock->expects($this->once())
+            ->method('set')
+            ->with($this->equalTo($value))
+            ->willReturnSelf();
+
         $this->objectManagerMock->expects($this->once())
             ->method('create')
-            ->with($this->equalTo($className), $this->equalTo([$key, null, $value]))
+            ->with($this->equalTo($className), $this->equalTo([$key]))
             ->willReturn($cacheItemMock);
 
         $this->cacheItemFactory->create($key, $value);
