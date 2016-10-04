@@ -105,7 +105,7 @@ declare(strict_types = 1);
 
 use \Picamator\CacheManager\Operation\Save;
 use \Picamator\CacheManager\Operation\Search;
-use \Picamator\CacheManager\Operation\Invalidate;
+use \Picamator\CacheManager\Operation\Delete;
 
 use \Picamator\CacheManager\ObjectManager;
 use \Picamator\CacheManager\Cache\CacheItemFactory;
@@ -136,10 +136,10 @@ $cacheKeyGenerator = new KeyGenerator();
 // In real live please use Proxies or Lazy Loading
 $operationSave          = new Save($cacheKeyGenerator, $cacheItemPoolMock, $cacheItemFactory);
 $operationSearch        = new Search($cacheKeyGenerator, $cacheItemPoolMock, $searchResultFactory);
-$operationInvalidate    = new Invalidate($cacheKeyGenerator, $cacheItemPoolMock);
+$operationDelete        = new Delete($cacheKeyGenerator, $cacheItemPoolMock);
 
 // Instantiate main cache manager object
-$cacheManager = new CacheManager($operationSave, $operationSearch, $operationInvalidate);
+$cacheManager = new CacheManager($operationSave, $operationSearch, $operationDelete);
 
 // Wrap Cache managed over Observer, it's possible to omit wrapper if application does not need such kind extensibility
 $cacheManagerSubject = new CacheManagerSubject($cacheManager);
