@@ -66,16 +66,15 @@ The second query SHOULD use cache for `myEntity` with id 3 and application SHOUL
 
 Usage
 -----
-### Memcache
+### Memcached
 The repository [MemcachedManager](https://github.com/picamator/MemcachedManager) is an example to use CacheManager with [Memcached](https://memcached.org/).
 
 ### Custom implementation
-To start using CacheManager it's need to implement several API factory interfaces:
-1. `Api\Cache\CacheItemFactoryInterface`
-2. `Api\Data\SearchResultFactoryInterface`
+To start using CacheManager it's need to implement interface:
+* `Psr\Cache\CacheItemPoolInterface `
 
 and optionally SPI interface:
-1. `Spi\ObserverInterface`
+* `Spi\ObserverInterface`
 
 There is code sample bellow, it's illustrate example in live please use DI library to build dependencies.
 
@@ -87,6 +86,9 @@ use \Picamator\CacheManager\Operation\Save;
 use \Picamator\CacheManager\Operation\Search;
 use \Picamator\CacheManager\Operation\Invalidate;
 
+use \Picamator\CacheManager\ObjectManager;
+use \Picamator\CacheManager\Cache\CacheItemFactory;
+use \Picamator\CacheManager\Data\SearchResultFactory;
 
 use \Picamator\CacheManager\Cache\KeyGenerator;
 use \Picamator\CacheManager\CacheManager;
@@ -98,25 +100,21 @@ use \Picamator\CacheManager\Data\SearchCriteria;
 // Required: use interface \Psr\Cache\CacheItemPoolInterface over your cache library to fit PSR-6
 $cacheItemPoolMock = new CacheItemPoolMock();
 
-// Required: use interface \Api\Data\SearchResultFactoryInterface
-$cacheResultFactoryMock = new CacheResultFactoryMock();
-
-// Required: use interface \Api\Cache\CacheItemFactoryInterface
-$cacheItemFactoryMock = new CacheItemFactoryMock();
-
-// Required: use interface \Picamator\CacheManager\Api\Data\SearchResultFactoryInterface
-$searchResultFactoryMock = new SearchResultFactoryMock();
-
 // Optional: use interface \Picamator\CacheManager\Spi\ObserverInterface
 $afterSearchMock = new AfterSearchMock();
 
 /** Existing Classes */
+// Object creator & factories
+$objectManager          = new ObjectManager();
+$cacheItemFactory       = new CacheItemFactory($objectManager);
+$searchResultFactory    = new SearchResultFactory($objectManager);
+
 // Building keys for saving data to cache
 $cacheKeyGenerator = new KeyGenerator();
 
 // In real live please use Proxies or Lazy Loading
-$operationSave          = new Save($cacheKeyGenerator, $cacheItemPoolMock, $cacheItemFactoryMock);
-$operationSearch        = new Search($cacheKeyGenerator, $cacheItemPoolMock, $searchResultFactoryMock);
+$operationSave          = new Save($cacheKeyGenerator, $cacheItemPoolMock, $cacheItemFactory);
+$operationSearch        = new Search($cacheKeyGenerator, $cacheItemPoolMock, $searchResultFactory);
 $operationInvalidate    = new Invalidate($cacheKeyGenerator, $cacheItemPoolMock);
 
 // Instantiate main cache manager object
