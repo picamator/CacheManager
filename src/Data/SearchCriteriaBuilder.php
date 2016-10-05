@@ -41,7 +41,7 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
-        string $className = 'Picamator\CacheManager\Data\SearchResult'
+        string $className = 'Picamator\CacheManager\Data\SearchCriteria'
     ) {
        $this->objectManager = $objectManager;
         $this->className = $className;
