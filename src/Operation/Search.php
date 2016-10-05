@@ -60,8 +60,10 @@ class Search implements SearchInterface
 
         /** @var \Psr\Cache\CacheItemInterface $value */
         foreach ($cacheItemGenerator as $key => $value) {
-            $itemData   = $value->get();
-            $fieldDiff  = array_diff($fieldList, array_keys($itemData));
+            $itemData           = $value->get();
+            $itemFieldList      = is_array($itemData) ? array_keys($itemData) : [];
+            $fieldDiff          = array_diff($fieldList, $itemFieldList);
+
             if (!is_null($itemData) && !$fieldDiff) {
                 $data[] = $value;
                 continue;
