@@ -97,6 +97,8 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
      */
     public function notify(string $event, ...$arguments)
     {
+        array_unshift($arguments, $event);
+
         $observerList = $this->getObserverList($event);
         /** @var \Picamator\CacheManager\Spi\ObserverInterface $item */
         foreach($observerList as $item) {
