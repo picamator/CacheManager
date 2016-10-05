@@ -52,16 +52,17 @@ class Search implements SearchInterface
      */
     public function search(SearchCriteriaInterface $searchCriteria) : SearchResultInterface
     {
-        $cacheItemList = $this->getCacheItemList($searchCriteria);
+        $cacheItemGenerator = $this->getCacheItemGenerator($searchCriteria);
         $fieldList = $searchCriteria->getFieldList();
 
         $data = [];
         $missedData = [];
 
         /** @var \Psr\Cache\CacheItemInterface $value */
-        foreach ($cacheItemList as $key => $value) {
-            $itemData = $value->get();
-            if (!is_null($itemData) && !array_diff($fieldList, array_keys($itemData))) {
+        foreach ($cacheItemGenerator as $key => $value) {
+            $itemData   = $value->get();
+            $fieldDiff  = array_diff($fieldList, array_keys($itemData));
+            if (!is_null($itemData) && !$fieldDiff) {
                 $data[] = $value;
                 continue;
             }
@@ -69,31 +70,28 @@ class Search implements SearchInterface
             $missedData[] = $key;
         }
 
-
         return $this->searchResultFactory->create($data, $missedData);
     }
 
     /**
-     * Retrieve cache data list
+     * Retrieve cache data generator
      *
      * @param SearchCriteriaInterface $searchCriteria
      *
-     * @return array it's keys are an entity identifier
+     * @return void
      *
      * @throws InvalidCacheKeyException
      */
-    private function getCacheItemList(SearchCriteriaInterface $searchCriteria) : array
+    private function getCacheItemGenerator(SearchCriteriaInterface $searchCriteria)
     {
-        $result = [];
         try {
             foreach ($searchCriteria->getIdList() as $item) {
                 $cacheKey = $this->keyGenerator->generate($item, $searchCriteria);
-                $result[$item] = $this->cacheItemPool->getItem($cacheKey);
+
+                yield $item => $this->cacheItemPool->getItem($cacheKey);
             }
         } catch (PsrCacheInvalidArgumentException $e) {
             throw new InvalidCacheKeyException($e->getMessage(), $e->getCode());
         }
-
-        return $result;
     }
 }

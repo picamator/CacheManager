@@ -167,6 +167,10 @@ class SearchTest extends BaseTest
             ->method('getIdList')
             ->willReturn([$id]);
 
+        $this->searchCriteriaMock->expects($this->once())
+            ->method('getFieldList')
+            ->willReturn([]);
+
         // cache generator mock
         $this->keyGeneratorMock->expects($this->once())
             ->method('generate')
@@ -181,8 +185,6 @@ class SearchTest extends BaseTest
             ->willThrowException($exception);
 
         // never
-        $this->searchCriteriaMock->expects($this->never())
-            ->method('getFieldList');
         $this->searchResultFactoryMock->expects($this->never())
             ->method('create');
 
