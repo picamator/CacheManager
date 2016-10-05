@@ -9,6 +9,8 @@ use Picamator\CacheManager\Api\ObjectManagerInterface;
 
 /**
  * Building search criteria object
+ *
+ * @codeCoverageIgnore
  */
 class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
 {

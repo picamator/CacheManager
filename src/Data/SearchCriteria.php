@@ -7,6 +7,8 @@ use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 
 /**
  * Abstraction over search query
+ *
+ * @codeCoverageIgnore
  */
 class SearchCriteria implements SearchCriteriaInterface
 {
@@ -49,11 +51,11 @@ class SearchCriteria implements SearchCriteriaInterface
         string $idName,
         string $contextName = null
     ) {
-        $this->entityName = $entityName;
-        $this->idList = $idList;
-        $this->fieldList = $fieldList;
-        $this->idName = $idName;
-        $this->contextName = $contextName;
+        $this->entityName   = $entityName;
+        $this->idList       = $idList;
+        $this->fieldList    = $fieldList;
+        $this->idName       = $idName;
+        $this->contextName  = $contextName;
     }
 
     /**

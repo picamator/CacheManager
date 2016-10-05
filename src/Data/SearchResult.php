@@ -6,7 +6,11 @@ namespace Picamator\CacheManager\Data;
 use Picamator\CacheManager\Api\Data\SearchResultInterface;
 
 /**
- * Wrapper over search result, represents what data was getting from cache as well as what should be ask from API
+ * Wrapper over search result.
+ *
+ * It represents what data was getting from cache as well as what should be ask from API.
+ *
+ * @codeCoverageIgnore
  */
 class SearchResult implements SearchResultInterface
 {
