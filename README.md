@@ -9,13 +9,14 @@ CacheManager
 
 CacheManager is an application providing wrapper over 3-rd party cache libraries optimizing for saving RESTful API's or SQL search results.
 
-The general approach to save search response building cache key as a hash of search query.
-But that approach is not working for two slightly different queries. Moreover it's failed to combine data from cache and server. Therefore CacheManager solves those problems for special cases such as searching by id or ids.
+The general approach to save search response is based on building cache key as a hash of search query.
+But that approach is not working well for two slightly different queries. Moreover it's failed to combine data from cache and server. CacheManager solves those problems for special cases like searching entities by it's ids.
 
 Cache libraries
 ---------------
-CacheManager does not have any default cache library neither own one. Instead CacheManager asks objects that are implemented [PSR-6](http://www.php-fig.org/psr/psr-6/). Having that with [Symfony DI](https://github.com/symfony/dependency-injection) and 
-[PSR-6 Adapters](https://github.com/php-cache?utf8=%E2%9C%93&query=adapter) it's possible to use any cache library without limitation. 
+CacheManager does not implement any default cache library neither own one. Instead CacheManager asks objects to implement [PSR-6](http://www.php-fig.org/psr/psr-6/). 
+Having that with [Symfony DI](https://github.com/symfony/dependency-injection) and 
+[PSR-6 Adapters](https://github.com/php-cache?utf8=%E2%9C%93&query=adapter) it makes possible to use any cache library without limitation. 
 
 Requirements
 ------------
@@ -40,9 +41,9 @@ Specification
 ### RESTful API
 Assume application works with RESTful API, where:
 * `cutomer` - entity name
-* `query`- parameter to save search criteria
-* `IN` - function similar to MySQL IN
-* `fields` - parameter with comma separated entities fields
+* `query`   - parameter to save search criteria
+* `IN`      - function similar to MySQL IN
+* `fields`  - parameter with comma separated entity's fields
 
 Each of the samples below shows pair of API requests that runs one after another or during one application request circle. 
 
@@ -50,14 +51,14 @@ Each of the samples below shows pair of API requests that runs one after another
 1. `GET: customer\?query="id IN(1,2,3)&fields='name,address'"`
 2. `GET: customer\?query="id IN(1,2)&fields='name'"`
 
-The second request SHOULD use cache because it has already had information about `customer` with ids 1 and 2.
+The second request SHOULD use cache because it had information about `customer` with id 1 and 2.
 
 #### Sample 2
 1. `GET: customer\?query="id IN(1,2,3)&fields='name'"`
 2. `GET: customer\?query="id IN(1,2)&fields='name,address'"`
 
 The second request SHOULD NOT use cache because it asks more information about `customer` that was saved in the cache.
-Therefore after obtained data from server the server response SHOULD be saved in cache overriding the previously saved data.
+Therefore after obtained data the server response SHOULD be saved in cache overriding the previously saved data.
 
 #### Sample 3
 1. `GET: customer\?query="id IN(1,2,3)&fields='name,address'"`
@@ -97,7 +98,7 @@ To start using CacheManager it's need to implement:
 and optionally SPI:
 * `Spi\ObserverInterface`
 
-There is code sample bellow as illustrative example, in live please use DI library to build dependencies.
+There is illustrative code example bellow. Please use DI library to build dependencies in your application.
 
 ```php
 <?php
@@ -167,18 +168,21 @@ $searchResult->hasData();       // boolean to show does something fit $searchCri
 
 ```
 
-Pitfalls
---------
-> @todo in-progress, it's about
-> invalidation, pagination over mixed sources API and cache
-> how to deal with different API sources and identical entities
+API&SPI
+-------
+### API
+API includes:
+* interfaces inside [Api](src/Api) directory
+* all Exceptions
+
+### SPI
+SPI includes:
+* interfaces inside [Spi](src/Spi) directory
+* events: beforeSave, afterSave, beforeSearch, afterSearch, beforeDelete, afterDelete
 
 Documentation
 -------------
 * UML diagrams can be found in [doc/uml](doc/uml) folder
-
-> @todo in-progress, it's about
-> link to wiki with API & SPI details
 
 Developing
 ----------
@@ -186,6 +190,15 @@ To configure developing environment please:
 
 1. Follow [install and run Docker container](dev/docker/README.md)
 2. Run inside project root in the Docker container `composer install` 
+
+### Backward compatibility
+Please follow steps bellow to keep Backward compatibility:
+* keep stable API & SPI SHOULD
+* keep stable constructor injection signature
+* keep stable throwing Exceptions type
+
+### Backward compatibility validation
+To check backward compatibility please run integration tests in [MemcachedManager](https://github.com/picamator/MemcachedManager).
 
 Contribution
 ------------
