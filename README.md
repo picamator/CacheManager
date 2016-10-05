@@ -10,13 +10,13 @@ CacheManager
 CacheManager is an application providing wrapper over 3-rd party cache libraries optimizing for saving RESTful API's or SQL search results.
 
 The general approach to save search response is based on building cache key as a hash of search query.
-But that approach is not working well for two slightly different queries. Moreover it's failed to combine data from cache and server. CacheManager solves those problems for special cases like searching entities by it's ids.
+But that is not working well for two slightly different queries. Moreover it's failed to combine data from cache and server. CacheManager solves those problems for special cases like searching entities by it's ids.
 
 Cache libraries
 ---------------
 CacheManager does not implement any default cache library neither own one. Instead CacheManager asks objects to implement [PSR-6](http://www.php-fig.org/psr/psr-6/). 
 Having that with [Symfony DI](https://github.com/symfony/dependency-injection) and 
-[PSR-6 Adapters](https://github.com/php-cache?utf8=%E2%9C%93&query=adapter) it makes possible to use any cache library without limitation. 
+[PSR-6 Adapters](https://github.com/php-cache?utf8=%E2%9C%93&query=adapter) makes possible to use any cache library without limitation. 
 
 Requirements
 ------------
@@ -24,7 +24,7 @@ Requirements
 
 Installation
 ------------
-* Update to your `composer.json`
+1. Update to your `composer.json`
 
 ```json
 {
@@ -34,7 +34,7 @@ Installation
 }
 ```
 
-* Run `composer install --no-dev`
+2. Run `composer install --no-dev`
 
 Specification
 --------------
@@ -45,7 +45,7 @@ Assume application works with RESTful API, where:
 * `IN`      - function similar to MySQL IN
 * `fields`  - parameter with comma separated entity's fields
 
-Each of the samples below shows pair of API requests that runs one after another or during one application request circle. 
+Each of the samples below shows pair of API requests.
 
 #### Sample 1
 1. `GET: customer\?query="id IN(1,2,3)&fields='name,address'"`
@@ -71,8 +71,7 @@ Let's application use MySQL with:
 * `customer` - table
 * `id`, `name`, and `address` - columns in `customer` table
 
-Each of SQL queries in samples bellow runs one after another or during one application request circle.
-SQL samples SHOULD behavior similar to corresponding RESTful API samples.
+Each of the samples below shows pair of SQL queries. SQL samples SHOULD behavior similar to corresponding RESTful API samples.
 
 #### Sample 1
 1. `SELECT name, address FROM customer WHERE id IN(1,2,3)`
@@ -92,13 +91,12 @@ Usage
 [MemcachedManager](https://github.com/picamator/MemcachedManager) is an example to use CacheManager with [Memcached](https://memcached.org/).
 
 ### Custom implementation
-To start using CacheManager it's need to implement:
-* `Psr\Cache\CacheItemPoolInterface `
+To start using CacheManager it's needL:
+1. Choose cache library
+2. Create [PSR-6](http://www.php-fig.org/psr/psr-6/) like adapter to implement `Psr\Cache\CacheItemPoolInterface`
+3. Optionally for SPI, all Observers SHOULD implement `Spi\ObserverInterface`
 
-and optionally SPI:
-* `Spi\ObserverInterface`
-
-There is illustrative code example bellow. Please use DI library to build dependencies in your application.
+There is illustrative code example bellow. Please use DI library to build dependencies in real application.
 
 ```php
 <?php
@@ -178,7 +176,7 @@ API includes:
 ### SPI
 SPI includes:
 * interfaces inside [Spi](src/Spi) directory
-* events: beforeSave, afterSave, beforeSearch, afterSearch, beforeDelete, afterDelete
+* events: `beforeSave`, `afterSave`, `beforeSearch`, `afterSearch`, `beforeDelete`, `afterDelete`
 
 Documentation
 -------------
