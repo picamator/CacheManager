@@ -8,7 +8,8 @@ use Picamator\CacheManager\Exception\RuntimeException;
 
 /**
  * Creates objects, the main usage inside factories
- * all objects are unshared, for shared objects please use DI service libraries
+ *
+ * All objects are unshared, for shared objects please use DI service libraries
  */
 class ObjectManager implements ObjectManagerInterface
 {

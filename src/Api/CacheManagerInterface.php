@@ -7,6 +7,7 @@ use Picamator\CacheManager\Exception\InvalidCacheKeyException;
 
 /**
  * Facade over operations: _save_, _search_, and _invalidate_
+ *
  * It's better to use Proxy over operations via DI for performance boost
  */
 interface CacheManagerInterface 

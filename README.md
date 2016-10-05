@@ -115,7 +115,7 @@ use \Picamator\CacheManager\Cache\KeyGenerator;
 use \Picamator\CacheManager\CacheManager;
 use \Picamator\CacheManager\CacheManagerSubject;
 
-use \Picamator\CacheManager\Data\SearchCriteria;
+use \Picamator\CacheManager\Data\SearchCriteriaBuilder;
 
 /** Classes for implementation */
 // Required: use interface \Psr\Cache\CacheItemPoolInterface over your cache library to fit PSR-6
@@ -131,7 +131,7 @@ $cacheItemFactory       = new CacheItemFactory($objectManager);
 $searchResultFactory    = new SearchResultFactory($objectManager);
 
 // Building keys for saving data to cache
-$cacheKeyGenerator = new KeyGenerator();
+$cacheKeyGenerator      = new KeyGenerator();
 
 // In real live please use Proxies or Lazy Loading
 $operationSave          = new Save($cacheKeyGenerator, $cacheItemPoolMock, $cacheItemFactory);
@@ -139,22 +139,23 @@ $operationSearch        = new Search($cacheKeyGenerator, $cacheItemPoolMock, $se
 $operationDelete        = new Delete($cacheKeyGenerator, $cacheItemPoolMock);
 
 // Instantiate main cache manager object
-$cacheManager = new CacheManager($operationSave, $operationSearch, $operationDelete);
+$cacheManager           = new CacheManager($operationSave, $operationSearch, $operationDelete);
 
 // Wrap Cache managed over Observer, it's possible to omit wrapper if application does not need such kind extensibility
-$cacheManagerSubject = new CacheManagerSubject($cacheManager);
+$cacheManagerSubject    = new CacheManagerSubject($cacheManager);
 
 // attach observer to execute after search
 $cacheManagerSubject->attach('afterSearch', $afterSearchMock);
 
 // prepare criteria for search
-$searchCriteria = new SearchCriteria(
-    'customer',     // $entityName
-    [1, 2, 3],      // $idList
-    ['id', 'name'], // $fieldList
-    'id',           // $idName
-    'cloud'         // $contextName
-);
+$searchCriteriaBuilder  = new SearchCriteriaBuilder($objectManager);
+$searchCriteria = $searchCriteriaBuilder
+                    ->setContextName('cloud')
+                    ->setEntityName('customer')
+                    ->setIdList([1, 2, 3])
+                    ->setFieldList(['id', 'name'])
+                    ->setIdName('id')
+                    ->build();
 
 $searchResult = $cacheManagerSubject->search($searchCriteria);
 

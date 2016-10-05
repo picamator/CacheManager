@@ -7,7 +7,7 @@ namespace Picamator\CacheManager\Api\Data;
 interface SearchCriteriaInterface 
 {
 	/**
-	 * Retrive context name
+	 * Retrieve context name
 	 * 
 	 * @return string
 	 */
