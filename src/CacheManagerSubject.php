@@ -39,9 +39,9 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
      */
     public function save(SearchCriteriaInterface $searchCriteria, array $data) : bool
     {
-        $this->notify('beforeSave');
+        $this->notify('beforeSave', $searchCriteria, $data);
         $result = $this->cacheManager->save($searchCriteria, $data);
-        $this->notify('afterSave');
+        $this->notify('afterSave', $result);
 
         return $result;
     }
@@ -49,13 +49,13 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
     /**
      * {@inheritdoc}
      *
-     *  Events: beforeSearch, afterSearch
+     * Events: beforeSearch, afterSearch
      */
     public function search(SearchCriteriaInterface $searchCriteria) : SearchResultInterface
     {
-        $this->notify('beforeSearch');
+        $this->notify('beforeSearch', $searchCriteria);
         $result = $this->cacheManager->search($searchCriteria);
-        $this->notify('afterSearch');
+        $this->notify('afterSearch', $result);
 
         return $result;
     }
@@ -67,9 +67,9 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
      */
     public function delete(SearchCriteriaInterface $searchCriteria)
     {
-        $this->notify('beforeDelete');
+        $this->notify('beforeDelete', $searchCriteria);
         $result = $this->cacheManager->delete($searchCriteria);
-        $this->notify('afterDelete');
+        $this->notify('afterDelete', $result);
 
         return $result;
     }
@@ -95,12 +95,12 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
     /**
      * {@inheritdoc}
      */
-    public function notify(string $event)
+    public function notify(string $event, ...$arguments)
     {
         $observerList = $this->getObserverList($event);
         /** @var \Picamator\CacheManager\Spi\ObserverInterface $item */
         foreach($observerList as $item) {
-            $item->update($this);
+            $item->update($this, $arguments);
         }
     }
 

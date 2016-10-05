@@ -8,8 +8,8 @@ use Picamator\CacheManager\Api\Data\SearchResultInterface;
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 
 use Picamator\CacheManager\Api\Operation\SaveInterface;
-use \Picamator\CacheManager\Api\Operation\SearchInterface;
-use \Picamator\CacheManager\Api\Operation\DeleteInterface;
+use Picamator\CacheManager\Api\Operation\SearchInterface;
+use Picamator\CacheManager\Api\Operation\DeleteInterface;
 
 /**
  * Facade over operations: _save_, _search_, and _invalidate_

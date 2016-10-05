@@ -25,7 +25,8 @@ interface SubjectInterface
 	/**
 	 * Notify
 	 * 
-	 * @param string $event
+	 * @param string    $event
+	 * @param array     $arguments
 	 */
-	public function notify(string $event);
+	public function notify(string $event, ...$arguments);
 }

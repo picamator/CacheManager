@@ -11,7 +11,8 @@ interface ObserverInterface
 	/**
 	 * Update
 	 * 
-	 * @param SubjectInterface $subject
+	 * @param SubjectInterface  $subject
+	 * @param array             $data
 	 */
-	public function update(SubjectInterface $subject);
+	public function update(SubjectInterface $subject, array $data);
 }
