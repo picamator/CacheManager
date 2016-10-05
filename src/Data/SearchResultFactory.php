@@ -13,22 +13,25 @@ use Picamator\CacheManager\Api\ObjectManagerInterface;
 class SearchResultFactory implements SearchResultFactoryInterface
 {
     /**
-     * @todo use private constant in php 7.1
-     * @var string
-     */
-    private static $objectName = '\Picamator\CacheManager\Data\SearchResult';
-
-    /**
      * @var ObjectManagerInterface
      */
     private $objectManager;
 
     /**
-     * @param ObjectManagerInterface $objectManager
+     * @var string
      */
-    public function __construct(ObjectManagerInterface $objectManager)
-    {
+    private $className;
+
+    /**
+     * @param ObjectManagerInterface    $objectManager
+     * @param string                    $className
+     */
+    public function __construct(
+        ObjectManagerInterface $objectManager,
+        string $className = '\Picamator\CacheManager\Data\SearchResult'
+    ) {
         $this->objectManager = $objectManager;
+        $this->className = $className;
     }
 
     /**
@@ -36,6 +39,6 @@ class SearchResultFactory implements SearchResultFactoryInterface
      */
     public function create(array $data, array $missedData) : SearchResultInterface
     {
-        return $this->objectManager->create(self::$objectName, [$data, $missedData]);
+        return $this->objectManager->create($this->className, [$data, $missedData]);
     }
 }

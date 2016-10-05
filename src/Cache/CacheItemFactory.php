@@ -13,22 +13,25 @@ use Psr\Cache\CacheItemInterface;
 class CacheItemFactory implements CacheItemFactoryInterface
 {
     /**
-     * @todo use private constant in php 7.1
-     * @var string
-     */
-    private static $objectName = '\Cache\Adapter\Common\CacheItem';
-
-    /**
      * @var ObjectManagerInterface
      */
     private $objectManager;
 
     /**
-     * @param ObjectManagerInterface $objectManager
+     * @var string
      */
-    public function __construct(ObjectManagerInterface $objectManager)
-    {
+    private $className;
+
+    /**
+     * @param ObjectManagerInterface    $objectManager
+     * @param string                    $className
+     */
+    public function __construct(
+        ObjectManagerInterface $objectManager,
+        string $className = '\Cache\Adapter\Common\CacheItem'
+    ) {
         $this->objectManager = $objectManager;
+        $this->className = $className;
     }
 
     /**
@@ -37,7 +40,7 @@ class CacheItemFactory implements CacheItemFactoryInterface
     public function create(string $key, array $value) : CacheItemInterface
     {
         /** @var \Cache\Adapter\Common\CacheItem $cacheItem */
-        $cacheItem = $this->objectManager->create(self::$objectName, [$key])
+        $cacheItem = $this->objectManager->create($this->className, [$key])
             ->set($value);
 
         return $cacheItem;
