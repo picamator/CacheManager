@@ -97,4 +97,18 @@ class SearchCriteria implements SearchCriteriaInterface
     {
         return $this->idName;
     }
+
+    /**
+     * @see http://php.net/manual/en/language.oop5.magic.php#object.debuginfo
+     */
+    public function __debugInfo()
+    {
+        return [
+            'contextName'   => $this->contextName,
+            'entityName'    => $this->entityName,
+            'idList'        => $this->idList,
+            'fieldList'     => $this->fieldList,
+            'idName'        => $this->idName,
+        ];
+    }
 }

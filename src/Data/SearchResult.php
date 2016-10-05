@@ -83,4 +83,17 @@ class SearchResult implements SearchResultInterface
 
         return $this->count;
     }
+
+    /**
+     * @see http://php.net/manual/en/language.oop5.magic.php#object.debuginfo
+     */
+    public function __debugInfo()
+    {
+        return [
+            'data'          => $this->data,
+            'missedData'    => $this->missedData,
+            'hasData'       => $this->hasData(),
+            'count'         => $this->count(),
+        ];
+    }
 }
