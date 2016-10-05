@@ -38,7 +38,9 @@ interface CacheManagerInterface
 	 * 
 	 * @param SearchCriteriaInterface 	$searchCriteria
      *
+     * @return bool _true_ for success save or _false_ otherwise
+     *
      * @throws InvalidCacheKeyException
 	 */
-	public function delete(SearchCriteriaInterface $searchCriteria);
+	public function delete(SearchCriteriaInterface $searchCriteria) : bool ;
 }

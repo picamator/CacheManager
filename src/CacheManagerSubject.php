@@ -63,9 +63,9 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
     /**
      * {@inheritdoc}
      *
-     * Events: beforeInvalidate, afterInvalidate
+     * Events: beforeDelete, afterDelete
      */
-    public function delete(SearchCriteriaInterface $searchCriteria)
+    public function delete(SearchCriteriaInterface $searchCriteria) : bool
     {
         $this->notify('beforeDelete', $searchCriteria);
         $result = $this->cacheManager->delete($searchCriteria);

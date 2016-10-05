@@ -15,7 +15,7 @@ interface SaveInterface
 	 * @param SearchCriteriaInterface	$searchCriteria
 	 * @param array 					$data collection of entities
 	 * 
-	 * @return bool 'true' for success save and 'false' otherwise
+	 * @return bool _true_ for success save and _false_ otherwise
 	 * 
 	 * @throws InvalidArgumentException
 	 */

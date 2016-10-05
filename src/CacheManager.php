@@ -67,7 +67,7 @@ class CacheManager implements CacheManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function delete(SearchCriteriaInterface $searchCriteria)
+    public function delete(SearchCriteriaInterface $searchCriteria) : bool
     {
         return $this->operationDelete->delete($searchCriteria);
     }

@@ -40,13 +40,15 @@ class Delete implements DeleteInterface
     /**
      * {@inheritdoc}
      */
-    public function delete(SearchCriteriaInterface $searchCriteria)
+    public function delete(SearchCriteriaInterface $searchCriteria) : bool
     {
         $cacheKeyList = $this->keyGenerator->generateList($searchCriteria);
         try {
-            $this->cacheItemPool->deleteItems($cacheKeyList);
+            $result = $this->cacheItemPool->deleteItems($cacheKeyList);
         } catch (PsrCacheInvalidArgumentException $e) {
             throw new InvalidCacheKeyException($e->getMessage(), $e->getCode());
         }
+
+        return $result;
     }
 }

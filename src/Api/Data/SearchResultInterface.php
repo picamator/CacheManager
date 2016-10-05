@@ -24,7 +24,7 @@ interface SearchResultInterface
 	/**
 	 * Check does container have any data
 	 * 
-	 * @return bool 'true' if data exist or 'false' otherwise
+	 * @return bool _true_ if data exist or _false_ otherwise
 	 */
 	public function hasData() : bool;
 	

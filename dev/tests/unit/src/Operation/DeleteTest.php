@@ -60,9 +60,11 @@ class deleteTest extends BaseTest
         // cache item pool mock
         $this->cacheItemPoolMock->expects($this->once())
             ->method('deleteItems')
-            ->willReturn($cacheKeyList);
+            ->willReturn($cacheKeyList)
+            ->willReturn(true);
 
-        $this->operation->delete($this->searchCriteriaMock);
+        $actual = $this->operation->delete($this->searchCriteriaMock);
+        $this->assertTrue($actual);
     }
 
     /**

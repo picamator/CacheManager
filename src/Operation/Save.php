@@ -75,7 +75,7 @@ class Save implements SaveInterface
      * @param string    $idName
      * @param array     $data
      *
-     * @return bool 'true' for valid and 'false' otherwise
+     * @return bool _true_ for valid and _false_ otherwise
      *
      * @throws InvalidArgumentException
      */
