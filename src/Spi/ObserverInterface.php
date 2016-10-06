@@ -1,6 +1,7 @@
 <?php
 namespace Picamator\CacheManager\Spi;
 
+use Picamator\CacheManager\Spi\Data\EventInterface;
 use Picamator\CacheManager\Spi\SubjectInterface;
 
 /**
@@ -12,7 +13,7 @@ interface ObserverInterface
 	 * Update
 	 * 
 	 * @param SubjectInterface  $subject
-	 * @param array             $data
+	 * @param EventInterface    $event
 	 */
-	public function update(SubjectInterface $subject, array $data);
+	public function update(SubjectInterface $subject, EventInterface $event);
 }

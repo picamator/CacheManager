@@ -9,6 +9,8 @@ use Picamator\CacheManager\Api\ObjectManagerInterface;
 
 /**
  * Factory to build SearchResult's objects
+ *
+ * @codeCoverageIgnore
  */
 class SearchResultFactory implements SearchResultFactoryInterface
 {

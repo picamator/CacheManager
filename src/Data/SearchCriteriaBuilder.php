@@ -44,13 +44,13 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
         string $className = 'Picamator\CacheManager\Data\SearchCriteria'
     ) {
        $this->objectManager = $objectManager;
-        $this->className = $className;
+       $this->className = $className;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setContextName(string $contextName)
+    public function setContextName(string $contextName) : SearchCriteriaBuilderInterface
     {
         $this->data['contextName'] = $contextName;
 
@@ -60,7 +60,7 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function setEntityName(string $entityName)
+    public function setEntityName(string $entityName) : SearchCriteriaBuilderInterface
     {
         $this->data['entityName'] = $entityName;
 
@@ -70,7 +70,7 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function setIdList(array $idList)
+    public function setIdList(array $idList) : SearchCriteriaBuilderInterface
     {
         $this->data['idList'] = $idList;
 
@@ -80,7 +80,7 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function setFieldList(array $fieldList)
+    public function setFieldList(array $fieldList) : SearchCriteriaBuilderInterface
     {
         $this->data['fieldList'] = $fieldList;
 
@@ -90,7 +90,7 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function setIdName(string $idName)
+    public function setIdName(string $idName) : SearchCriteriaBuilderInterface
     {
         $this->data['idName'] = $idName;
 

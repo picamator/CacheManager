@@ -1,5 +1,6 @@
 <?php
 namespace Picamator\CacheManager\Spi;
+use Picamator\CacheManager\Spi\Data\EventInterface;
 
 /**
  * Subject as a part observer pattern implementation
@@ -9,24 +10,23 @@ interface SubjectInterface
 	/**
 	 * Attach
 	 * 
-	 * @param string 			$event
+	 * @param string 			$name
 	 * @param ObserverInterface $observer
 	 */
-	public function attach(string $event, ObserverInterface $observer);
+	public function attach(string $name, ObserverInterface $observer);
 	
 	/**
 	 * Detach
 	 * 
-	 * @param string 			$event
+	 * @param string 			$name
 	 * @param ObserverInterface $observer
 	 */
-	public function detach(string $event, ObserverInterface $observer);
+	public function detach(string $name, ObserverInterface $observer);
 	
 	/**
 	 * Notify
-	 * 
-	 * @param string    $event
-	 * @param array     $arguments
+	 *
+	 * @param EventInterface $event
 	 */
-	public function notify(string $event, ...$arguments);
+	public function notify(EventInterface $event);
 }

@@ -6,6 +6,8 @@ namespace Picamator\CacheManager;
 use Picamator\CacheManager\Api\CacheManagerInterface;
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 use Picamator\CacheManager\Api\Data\SearchResultInterface;
+use Picamator\CacheManager\Spi\Data\EventBuilderInterface;
+use Picamator\CacheManager\Spi\Data\EventInterface;
 use Picamator\CacheManager\Spi\ObserverInterface;
 use Picamator\CacheManager\Spi\SubjectInterface;
 
@@ -20,16 +22,25 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
     private $cacheManager;
 
     /**
+     * @var EventFactoryInterface
+     */
+    private $eventBuilder;
+
+    /**
      * @var array
      */
     private $observerContainer = [];
 
     /**
      * @param CacheManagerInterface $cacheManager
+     * @param EventBuilderInterface $eventBuilder
      */
-    public function __construct(CacheManagerInterface $cacheManager)
-    {
+    public function __construct(
+        CacheManagerInterface $cacheManager,
+        EventBuilderInterface $eventBuilder
+    ) {
         $this->cacheManager = $cacheManager;
+        $this->eventBuilder = $eventBuilder;
     }
 
     /**
@@ -39,9 +50,33 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
      */
     public function save(SearchCriteriaInterface $searchCriteria, array $data) : bool
     {
-        $this->notify('beforeSave', $searchCriteria, $data);
+        // before save event
+        $eventBeforeName = 'beforeSave';
+        if ($this->hasObserver($eventBeforeName)) {
+            $eventBefore = $this->eventBuilder
+                ->setName($eventBeforeName)
+                ->setSearchCriteria($searchCriteria)
+                ->setArgumentList([$data])
+                ->build();
+
+            $this->notify($eventBefore);
+        }
+
+        // execute operation
         $result = $this->cacheManager->save($searchCriteria, $data);
-        $this->notify('afterSave', $result);
+
+        // after save event
+        $eventAfterName = 'afterSave';
+        if ($this->hasObserver($eventAfterName)) {
+            $eventAfter = $this->eventBuilder
+                ->setName($eventAfterName)
+                ->setSearchCriteria($searchCriteria)
+                ->setArgumentList([$data])
+                ->setOperationResult($result)
+                ->build();
+
+            $this->notify($eventAfter);
+        }
 
         return $result;
     }
@@ -53,9 +88,31 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
      */
     public function search(SearchCriteriaInterface $searchCriteria) : SearchResultInterface
     {
-        $this->notify('beforeSearch', $searchCriteria);
+        // before search event
+        $eventBeforeName = 'beforeSearch';
+        if ($this->hasObserver($eventBeforeName)) {
+            $eventBefore = $this->eventBuilder
+                ->setName($eventBeforeName)
+                ->setSearchCriteria($searchCriteria)
+                ->build();
+
+            $this->notify($eventBefore);
+        }
+
+        // execute operation
         $result = $this->cacheManager->search($searchCriteria);
-        $this->notify('afterSearch', $result);
+
+        // after search event
+        $eventAfterName = 'afterSearch';
+        if ($this->hasObserver($eventAfterName)) {
+            $eventAfter = $this->eventBuilder
+                ->setName($eventAfterName)
+                ->setSearchCriteria($searchCriteria)
+                ->setOperationResult($result)
+                ->build();
+
+            $this->notify($eventAfter);
+        }
 
         return $result;
     }
@@ -67,9 +124,31 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
      */
     public function delete(SearchCriteriaInterface $searchCriteria) : bool
     {
-        $this->notify('beforeDelete', $searchCriteria);
+        // before delete event
+        $eventBeforeName = 'beforeDelete';
+        if ($this->hasObserver($eventBeforeName)) {
+            $eventBefore = $this->eventBuilder
+                ->setName($eventBeforeName)
+                ->setSearchCriteria($searchCriteria)
+                ->build();
+
+            $this->notify($eventBefore);
+        }
+
+        // execute operation
         $result = $this->cacheManager->delete($searchCriteria);
-        $this->notify('afterDelete', $result);
+
+        // after delete event
+        $eventAfterName = 'afterDelete';
+        if ($this->hasObserver($eventAfterName)) {
+            $eventAfter = $this->eventBuilder
+                ->setName($eventAfterName)
+                ->setSearchCriteria($searchCriteria)
+                ->setOperationResult($result)
+                ->build();
+
+            $this->notify($eventAfter);
+        }
 
         return $result;
     }
@@ -77,48 +156,58 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
     /**
      * {@inheritdoc}
      */
-    public function attach(string $event, ObserverInterface $observer)
+    public function attach(string $name, ObserverInterface $observer)
     {
-        $observerList = $this->getObserverList($event);
+        $observerList = $this->getObserverList($name);
         $observerList->attach($observer);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function detach(string $event, ObserverInterface $observer)
+    public function detach(string $name, ObserverInterface $observer)
     {
-        $observerList = $this->getObserverList($event);
+        $observerList = $this->getObserverList($name);
         $observerList->detach($observer);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function notify(string $event, ...$arguments)
+    public function notify(EventInterface $event)
     {
-        array_unshift($arguments, $event);
-
-        $observerList = $this->getObserverList($event);
+        $observerList = $this->getObserverList($event->getName());
         /** @var \Picamator\CacheManager\Spi\ObserverInterface $item */
         foreach($observerList as $item) {
-            $item->update($this, $arguments);
+            $item->update($this, $event);
         }
     }
 
     /**
      * Retrieve observer list
      *
-     * @param string $event
+     * @param string $name
      *
      * @return \SplObjectStorage
      */
-    private function getObserverList(string $event) : \SplObjectStorage
+    private function getObserverList(string $name) : \SplObjectStorage
     {
-        if (empty($this->observerContainer[$event])) {
-            $this->observerContainer[$event] = new \SplObjectStorage();
+        if (empty($this->observerContainer[$name])) {
+            $this->observerContainer[$name] = new \SplObjectStorage();
         }
 
-        return $this->observerContainer[$event];
+        return $this->observerContainer[$name];
+    }
+
+    /**
+     * Check whatever observer container has at least one observer
+     *
+     * @param string $name
+     *
+     * @return bool _true_ observer container has at least one observer, _false_ otherwise
+     */
+    private function hasObserver(string $name) : bool
+    {
+        return !empty($this->observerContainer[$name]) && $this->observerContainer[$name]->count();
     }
 }

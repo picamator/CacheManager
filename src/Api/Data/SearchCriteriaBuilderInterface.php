@@ -15,7 +15,7 @@ interface SearchCriteriaBuilderInterface
      *
      * @return self
      */
-    public function setContextName(string $contextName);
+    public function setContextName(string $contextName) : self;
 
     /**
      * Sets entity name
@@ -24,7 +24,7 @@ interface SearchCriteriaBuilderInterface
      *
      * @return self
      */
-    public function setEntityName(string $entityName);
+    public function setEntityName(string $entityName) : self;
 
     /**
      * Sets id's list
@@ -33,7 +33,7 @@ interface SearchCriteriaBuilderInterface
      *
      * @return self
      */
-    public function setIdList(array $idList);
+    public function setIdList(array $idList) : self;
 
     /**
      * Sets field's list
@@ -42,7 +42,7 @@ interface SearchCriteriaBuilderInterface
      *
      * @return self
      */
-    public function setFieldList(array $fieldList);
+    public function setFieldList(array $fieldList) : self;
 
     /**
      * Sets identifier name
@@ -51,7 +51,7 @@ interface SearchCriteriaBuilderInterface
      *
      * @return self
      */
-    public function setIdName(string $idName);
+    public function setIdName(string $idName) : self;
 
     /**
      * Build search criteria
