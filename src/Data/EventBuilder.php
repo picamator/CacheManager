@@ -84,8 +84,8 @@ class EventBuilder implements EventBuilderInterface
     public function setOperationResult($operationResult) : EventBuilderInterface
     {
         if (!is_null($operationResult)
-            || !is_bool($operationResult)
-            || !is_a($operationResult, '\Picamator\CacheManager\Api\Data\SearchResultInterface')
+            && !is_bool($operationResult)
+            && !is_a($operationResult, '\Picamator\CacheManager\Api\Data\SearchResultInterface')
         ) {
             throw new InvalidArgumentException('Invalid $operationResult type. It should be null, boolean or SearchResultInterface.');
         }
