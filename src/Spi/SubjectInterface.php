@@ -1,5 +1,6 @@
 <?php
 namespace Picamator\CacheManager\Spi;
+
 use Picamator\CacheManager\Spi\Data\EventInterface;
 
 /**

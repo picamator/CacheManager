@@ -7,7 +7,7 @@ Installation
 ------------
 To prepare developing environment please choose one of the installation way.
 
-Commands inside inside installation instructions contains placeholders for replacement:
+Commands inside installation instructions contains such placeholders to change:
 * `my-docker-account` by your own
 * `project-path` absolute path to CacheManager
 

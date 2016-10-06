@@ -59,20 +59,20 @@ Each of the samples below shows pair of API requests.
 1. `GET: customer\?query="id IN(1,2,3)&fields='name,address'"`
 2. `GET: customer\?query="id IN(1,2)&fields='name'"`
 
-The second request SHOULD use cache because it had information about `customer` with id 1 and 2.
+The second request SHOULD use cache because it has information about `customer` with id 1 and 2.
 
 #### Sample 2
 1. `GET: customer\?query="id IN(1,2,3)&fields='name'"`
 2. `GET: customer\?query="id IN(1,2)&fields='name,address'"`
 
 The second request SHOULD NOT use cache because it asks more information about `customer` that was saved in the cache.
-Therefore after obtained data the server response SHOULD be saved in cache overriding the previously saved data.
+Therefore after server data was obtained it SHOULD be saved to cache overriding the previously saved data.
 
 #### Sample 3
 1. `GET: customer\?query="id IN(1,2,3)&fields='name,address'"`
 2. `GET: customer\?query="id IN(3,4)&fields='name'"`
 
-The second query SHOULD use cache for `customer` with id 3 and application SHOULD get only information about id 4.
+The second query SHOULD use cache for `customer` with id 3 and application SHOULD ask server only information about id 4.
 
 ### SQL
 Let's application use MySQL with:
@@ -99,12 +99,12 @@ Usage
 [MemcachedManager](https://github.com/picamator/MemcachedManager) is an example to use CacheManager with [Memcached](https://memcached.org/).
 
 ### Custom implementation
-To start using CacheManager it's needL:
+To start using CacheManager it's need:
 1. Choose cache library
 2. Create [PSR-6](http://www.php-fig.org/psr/psr-6/) like adapter to implement `Psr\Cache\CacheItemPoolInterface`
 3. Optionally for SPI, all Observers SHOULD implement `Spi\ObserverInterface`
 
-There is illustrative code example bellow. Please use DI library to build dependencies in real application.
+There is illustrative code bellow. Please use DI library to build dependencies in real application.
 
 ```php
 <?php
