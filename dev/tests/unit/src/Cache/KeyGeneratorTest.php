@@ -7,9 +7,9 @@ use Picamator\CacheManager\Cache\KeyGenerator;
 class CacheKeyTest extends BaseTest
 {
     /**
-     * @var CacheGenerator
+     * @var KeyGenerator
      */
-    private $cacheGenerator;
+    private $keyGenerator;
 
     /**
      * @var \Picamator\CacheManager\Api\Data\SearchCriteriaInterface | \PHPUnit_Framework_MockObject_MockObject
@@ -23,7 +23,7 @@ class CacheKeyTest extends BaseTest
         $this->searchCriteriaMock = $this->getMockBuilder('Picamator\CacheManager\Api\Data\SearchCriteriaInterface')
             ->getMock();
 
-        $this->cacheGenerator = new KeyGenerator();
+        $this->keyGenerator = new KeyGenerator();
     }
 
     /**
@@ -50,9 +50,44 @@ class CacheKeyTest extends BaseTest
             ->willReturn($contextName);
 
         // test result as well as duplication run
-        $this->cacheGenerator->generate($id, $this->searchCriteriaMock);
-        $actual = $this->cacheGenerator->generate($id, $this->searchCriteriaMock);
+        $this->keyGenerator->generate($id, $this->searchCriteriaMock);
+        $actual = $this->keyGenerator->generate($id, $this->searchCriteriaMock);
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testDuplicateIdGenerator()
+    {
+        $id = 1;
+        $entityName = 'customer';
+
+        // search criteria mock in _first_context_
+        $searchCriteriaFirstMock = $this->getMockBuilder('Picamator\CacheManager\Api\Data\SearchCriteriaInterface')
+            ->getMock();
+
+        $searchCriteriaFirstMock->expects($this->once())
+            ->method('getContextName')
+            ->willReturn('first_context');
+
+        $searchCriteriaFirstMock->expects($this->once())
+            ->method('getEntityName')
+            ->willReturn($entityName);
+
+        // search criteria mock in _second_context_
+        $searchCriteriaSecondMock = $this->getMockBuilder('Picamator\CacheManager\Api\Data\SearchCriteriaInterface')
+            ->getMock();
+
+        $searchCriteriaSecondMock->expects($this->once())
+            ->method('getContextName')
+            ->willReturn('second_context');
+
+        $searchCriteriaSecondMock->expects($this->once())
+            ->method('getEntityName')
+            ->willReturn($entityName);
+
+        $keyFirst = $this->keyGenerator->generate($id, $searchCriteriaFirstMock);
+        $keySecond = $this->keyGenerator->generate($id, $searchCriteriaSecondMock);
+
+        $this->assertNotEquals($keyFirst, $keySecond);
     }
 
     public function testGenerateList()

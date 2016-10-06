@@ -18,27 +18,19 @@ class KeyGenerator implements KeyGeneratorInterface
     private static $keySeparator = '_' ;
 
     /**
-     * @var array
-     */
-    private $generateContainer = [];
-
-    /**
      * {@inheritdoc}
      */
     public function generate(int $id, SearchCriteriaInterface $searchCriteria) : string
     {
-        if (empty($this->generateContainer[$id])) {
-            $data = [
-                $searchCriteria->getContextName(),
-                $searchCriteria->getEntityName(),
-                $id
-            ];
-            $data = array_filter($data);
-
-            $this->generateContainer[$id] = implode(self::$keySeparator, $data);
-        }
-
-        return $this->generateContainer[$id];
+        $data = [
+            $searchCriteria->getContextName(),
+            $searchCriteria->getEntityName(),
+            $id
+        ];
+        $data = array_filter($data);
+        $result = implode(self::$keySeparator, $data);
+        
+        return $result;
     }
 
     /**
