@@ -45,9 +45,9 @@ interface EventBuilderInterface
      *
      * @param null|boolean|SearchResultInterface $operationResult
      *
-     * @return EventBuilderInterface
+     * @return self
      *
-     * @throws self
+     * @throws InvalidArgumentException
      */
     public function setOperationResult($operationResult) : self;
 
