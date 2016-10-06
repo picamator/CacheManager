@@ -50,7 +50,6 @@ class CacheKeyTest extends BaseTest
             ->willReturn($contextName);
 
         // test result as well as duplication run
-        $this->keyGenerator->generate($id, $this->searchCriteriaMock);
         $actual = $this->keyGenerator->generate($id, $this->searchCriteriaMock);
         $this->assertEquals($expected, $actual);
     }
