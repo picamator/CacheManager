@@ -48,7 +48,7 @@ Specification
 --------------
 ### RESTful API
 Assume application works with RESTful API, where:
-* `cutomer` - entity name
+* `customer` - entity name
 * `query`   - parameter to save search criteria
 * `IN`      - function similar to MySQL IN
 * `fields`  - parameter with comma separated entity's fields
