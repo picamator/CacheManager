@@ -1,0 +1,34 @@
+{
+    "name": "picamator/cachemanager",
+    "description": "Wrapper over 3-rd party cache libraries to optimise saving API/'s search result'",
+    "keywords": ["cache", "management", "wrapper"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergii Pryz",
+            "email": "picamator@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+			"Picamator\\CacheManager\\": "src/"
+        },
+       	"exclude-from-classmap": [
+            "/dev/tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Picamator\\CacheManager\\Tests\\Unit\\": "dev/tests/unit/src"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.0",
+        "psr/cache": "~1.0",
+        "cache/adapter-common": "^0.3"
+  	},
+   "require-dev": {
+        "phpunit/phpunit": "~5.5"
+   }
+}
