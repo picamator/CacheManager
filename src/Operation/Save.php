@@ -76,8 +76,6 @@ class Save implements SaveInterface
      * @param array     $data
      *
      * @return bool _true_ for valid and _false_ otherwise
-     *
-     * @throws InvalidArgumentException
      */
     private function isValid(string $idName, array $data)
     {

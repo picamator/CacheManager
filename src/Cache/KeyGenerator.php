@@ -29,7 +29,7 @@ class KeyGenerator implements KeyGeneratorInterface
         ];
         $data = array_filter($data);
         $result = implode(self::$keySeparator, $data);
-        
+
         return $result;
     }
 

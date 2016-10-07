@@ -46,7 +46,7 @@ class Delete implements DeleteInterface
         try {
             $result = $this->cacheItemPool->deleteItems($cacheKeyList);
         } catch (PsrCacheInvalidArgumentException $e) {
-            throw new InvalidCacheKeyException($e->getMessage(), $e->getCode());
+            throw new InvalidCacheKeyException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $result;

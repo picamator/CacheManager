@@ -11,6 +11,7 @@ use Picamator\CacheManager\Api\Operation\SearchInterface;
 use Picamator\CacheManager\Exception\InvalidCacheKeyException;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException as PsrCacheInvalidArgumentException;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * Search operation
@@ -60,11 +61,7 @@ class Search implements SearchInterface
 
         /** @var \Psr\Cache\CacheItemInterface $value */
         foreach ($cacheItemGenerator as $key => $value) {
-            $itemData           = $value->get();
-            $itemFieldList      = is_array($itemData) ? array_keys($itemData) : [];
-            $fieldDiff          = array_diff($fieldList, $itemFieldList);
-
-            if (!is_null($itemData) && !$fieldDiff) {
+            if ($this->hasValidCacheItem($value, $fieldList)) {
                 $data[] = $value;
                 continue;
             }
@@ -73,6 +70,26 @@ class Search implements SearchInterface
         }
 
         return $this->searchResultFactory->create($data, $missedData);
+    }
+
+    /**
+     * Has valid cache item
+     *
+     * @param CacheItemInterface    $cacheItem
+     * @param array                 $fieldList
+     *
+     * @return bool
+     */
+    private function hasValidCacheItem(CacheItemInterface $cacheItem, array $fieldList) : bool
+    {
+        $data = $cacheItem->get();
+        if (is_null($data)) {
+            return false;
+        }
+
+        $fieldDiff = array_diff($fieldList, array_keys($data));
+
+        return !$fieldDiff;
     }
 
     /**
@@ -93,7 +110,7 @@ class Search implements SearchInterface
                 yield $item => $this->cacheItemPool->getItem($cacheKey);
             }
         } catch (PsrCacheInvalidArgumentException $e) {
-            throw new InvalidCacheKeyException($e->getMessage(), $e->getCode());
+            throw new InvalidCacheKeyException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }
