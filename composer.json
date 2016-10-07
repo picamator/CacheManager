@@ -1,6 +1,6 @@
 {
     "name": "picamator/cachemanager",
-    "description": "Wrapper over 3-rd party cache libraries to optimise saving API/'s search result'",
+    "description": "Wrapper over 3-rd party cache libraries to optimise saving API/'s search result",
     "keywords": ["cache", "management", "wrapper"],
     "license": "MIT",
     "authors": [
