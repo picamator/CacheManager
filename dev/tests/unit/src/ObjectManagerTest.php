@@ -17,7 +17,12 @@ class ObjectManagerTest extends BaseTest
         $this->objectManager = new ObjectManager();
     }
 
-    public function testCreate()
+    /**
+     * @dataProvider providerCreate
+     *
+     * @param array $arguments
+     */
+    public function testCreate($arguments)
     {
         $className = '\DateTime';
         $arguments = ['now'];
@@ -32,5 +37,13 @@ class ObjectManagerTest extends BaseTest
     public function testFailCreate()
     {
         $this->objectManager->create('\Picamator\CacheManager\Cache\KeyGenerator', [1, 2]);
+    }
+
+    public function providerCreate()
+    {
+        return [
+            [['now']],
+            [[]]
+        ];
     }
 }

@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.0.2 (2016-10-13)
+------------------
+* Added use-case diagram
+* Integrated phpDocumentator
+* Updated readme: usage, example
+* Fixed coveralls
+
 1.0.1 (2016-10-07)
 ------------------
 * Fixed UML diagram
@@ -9,4 +16,4 @@ CHANGELOG
 1.0.0 (2016-10-07)
 ------------------
 * Built CacheManager with documentation, examples, tests
-* Create [MemcachedManager](https://github.com/picamator/MemcachedManager) as a proof of concept
+* Created [MemcachedManager](https://github.com/picamator/MemcachedManager) as a proof of concept

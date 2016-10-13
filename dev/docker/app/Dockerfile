@@ -7,6 +7,10 @@ RUN apt-get -y install php7.0
 RUN apt-get -y install php7.0-xml
 RUN apt-get -y install php7.0-curl
 RUN apt-get -y install php7.0-zip
+RUN apt-get -y install php7.0-intl
+
+# graphviz
+RUN apt-get -y install graphviz
 
 # git
 RUN apt-get -y install git
