@@ -29,6 +29,8 @@
         "cache/adapter-common": "^0.3"
   	},
    "require-dev": {
-        "phpunit/phpunit": "~5.5"
+        "phpunit/phpunit": "~5.5",
+        "phpdocumentor/phpdocumentor": "2.*",
+        "satooshi/php-coveralls": "~1.0"
    }
 }

@@ -95,16 +95,33 @@ Each of the samples below shows pair of SQL queries. SQL samples SHOULD behavior
 
 Usage
 -----
+CacheManager has two different Facade classes:
+1. `CacheManager` - provides base operation over cache
+2. `CacheManagerSubject` - makes extending `CacheManager` with `events`
+
+It's up to application to use what kind of extensibility is needed. If it's not need to use `events` then `CacheManager` Facade is a best choose.
+
+Here is a steps to use CacheManager:
+1. Choose your cache library with [PSR-6](http://www.php-fig.org/psr/psr-6/) compatible adapter
+2. Instantiate dependencies for CacheManager Facades using [DI](https://en.wikipedia.org/wiki/Dependency_injection)
+3. Create `CacheManager` or `CacheManagerSubject`
+4. Prepare `SearchCriteriaBuilder`
+5. Apply operation on CacheManager Facades
+6. Handle result
+
+Generally the steps 1-3 executes only once during application bootstrap but 4-6 are executed several times as needed.
+
 ### Memcached
 [MemcachedManager](https://github.com/picamator/MemcachedManager) is an example to use CacheManager with [Memcached](https://memcached.org/).
 
-### Custom implementation
-To start using CacheManager it's need:
-1. Choose cache library
-2. Create [PSR-6](http://www.php-fig.org/psr/psr-6/) like adapter to implement `Psr\Cache\CacheItemPoolInterface`
-3. Optionally for SPI, all Observers SHOULD implement `Spi\ObserverInterface`
+### Other cache libraries
+To use CacheManager with arbitrary Cache library it's need:
+1. Implement [PSR-6](http://www.php-fig.org/psr/psr-6/) interface `Psr\Cache\CacheItemPoolInterface` over your library
+2. or choose one from existing adapters [php-cache](https://github.com/php-cache)
+3. Choose between `CacheManager` and `CacheManagerSubject`
 
-There is illustrative code bellow. Please use DI library to build dependencies in real application.
+There is illustrative code bellow shows how to make cache search with `CacheManagerSubject`. 
+Please use DI library to build dependencies in real application.
 
 ```php
 <?php
@@ -124,15 +141,18 @@ use \Picamator\CacheManager\CacheManagerSubject;
 
 use \Picamator\CacheManager\Data\SearchCriteriaBuilder;
 
-/** Classes for implementation */
-// Required: use interface \Psr\Cache\CacheItemPoolInterface over your cache library to fit PSR-6
+/** 
+ * 1. Create dependencies objects
+ */
+// Use your implementation or existing adapters to fit PSR-6
+/** @var \Psr\Cache\CacheItemPoolInterface $cacheItemPoolMock */
 $cacheItemPoolMock = new CacheItemPoolMock();
 
-// Optional: use interface \Picamator\CacheManager\Spi\ObserverInterface
+// Use your implementation for extending CacheManagerSubject functionality
+/** @var \Picamator\CacheManager\Spi\ObserverInterface $afterSearchMock */
 $afterSearchMock = new AfterSearchMock();
 
-/** Existing Classes */
-// Object creator & factories
+// Object builder & factories
 $objectManager          = new ObjectManager();
 $cacheItemFactory       = new CacheItemFactory($objectManager);
 $searchResultFactory    = new SearchResultFactory($objectManager);
@@ -145,16 +165,22 @@ $operationSave          = new Save($cacheKeyGenerator, $cacheItemPoolMock, $cach
 $operationSearch        = new Search($cacheKeyGenerator, $cacheItemPoolMock, $searchResultFactory);
 $operationDelete        = new Delete($cacheKeyGenerator, $cacheItemPoolMock);
 
+/**
+ * 2. Instantiate cache manager 
+ */
 // Instantiate main cache manager object
 $cacheManager           = new CacheManager($operationSave, $operationSearch, $operationDelete);
 
-// Wrap Cache managed over Observer, it's possible to omit wrapper if application does not need such kind extensibility
+// Wrap Cache managed as Observer, it's possible to omit wrapper if application does not need such kind extensibility
 $cacheManagerSubject    = new CacheManagerSubject($cacheManager);
 
-// attach observer to execute after search
+// Attach observer to execute after search
 $cacheManagerSubject->attach('afterSearch', $afterSearchMock);
 
-// prepare criteria for search
+/**
+ * 3. Provide search 
+ */
+// Prepare criteria
 $searchCriteriaBuilder  = new SearchCriteriaBuilder($objectManager);
 $searchCriteria = $searchCriteriaBuilder
                     ->setContextName('cloud')
@@ -166,6 +192,9 @@ $searchCriteria = $searchCriteriaBuilder
 
 $searchResult = $cacheManagerSubject->search($searchCriteria);
 
+/**
+ * 4. Handle search result 
+ */
 // result api details
 $searchResult->count();         // number of returned data from cache e.g. 2
 $searchResult->getData();       // array of cache items
@@ -188,7 +217,9 @@ SPI includes:
 
 Documentation
 -------------
-* UML diagrams can be found in [doc/uml](doc/uml) folder.
+* UML class diagram: [class.diagram.png](doc/uml/class.diagram.png)
+* Use case diagram: [use-case.diagram.png](doc/uml/use-case.diagram.png)
+* Generated documentation: [phpdoc](doc/phpdoc), please build it following [instruction](dev/phpdoc)
 
 Developing
 ----------
