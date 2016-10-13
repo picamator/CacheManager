@@ -8,12 +8,12 @@ CacheManager
 Master
 ------
 [![Build Status](https://travis-ci.org/picamator/CacheManager.svg?branch=master)](https://travis-ci.org/picamator/CacheManager)
-[![Coverage Status](https://img.shields.io/coveralls/picamator/CacheManager.svg)](https://coveralls.io/r/picamator/CacheManager?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/picamator/CacheManager/badge.svg?branch=master)](https://coveralls.io/github/picamator/CacheManager?branch=master)
 
 Dev
 ---
 [![Build Status](https://travis-ci.org/picamator/CacheManager.svg?branch=dev)](https://travis-ci.org/picamator/CacheManager)
-[![Coverage Status](https://img.shields.io/coveralls/picamator/CacheManager.svg)](https://coveralls.io/r/picamator/CacheManager?branch=dev)
+[![Coverage Status](https://coveralls.io/repos/github/picamator/CacheManager/badge.svg?branch=dev)](https://coveralls.io/github/picamator/CacheManager?branch=dev)
 
 CacheManager is an application providing wrapper over 3-rd party cache libraries optimizing for saving RESTful API's or SQL search results.
 
