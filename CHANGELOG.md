@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+1.0.3 (2016-10-29)
+------------------
+* Fixed readme style
+
 1.0.2 (2016-10-13)
 ------------------
 * Added use-case diagram

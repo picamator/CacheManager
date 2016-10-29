@@ -48,10 +48,11 @@ Specification
 --------------
 ### RESTful API
 Assume application works with RESTful API, where:
+
 * `customer` - entity name
-* `query`   - parameter to save search criteria
-* `IN`      - function similar to MySQL IN
-* `fields`  - parameter with comma separated entity's fields
+* `query`    - parameter to save search criteria
+* `IN`       - function similar to MySQL IN
+* `fields`   - parameter with comma separated entity's fields
 
 Each of the samples below shows pair of API requests.
 
@@ -96,12 +97,14 @@ Each of the samples below shows pair of SQL queries. SQL samples SHOULD behavior
 Usage
 -----
 CacheManager has two different Facade classes:
+
 1. `CacheManager` - provides base operation over cache
 2. `CacheManagerSubject` - makes extending `CacheManager` with `events`
 
 It's up to application to use what kind of extensibility is needed. If it's not need to use `events` then `CacheManager` Facade is a best choose.
 
 Here is a steps to use CacheManager:
+
 1. Choose your cache library with [PSR-6](http://www.php-fig.org/psr/psr-6/) compatible adapter
 2. Instantiate dependencies for CacheManager Facades using [DI](https://en.wikipedia.org/wiki/Dependency_injection)
 3. Create `CacheManager` or `CacheManagerSubject`
@@ -116,6 +119,7 @@ Generally the steps 1-3 executes only once during application bootstrap but 4-6 
 
 ### Other cache libraries
 To use CacheManager with arbitrary Cache library it's need:
+
 1. Implement [PSR-6](http://www.php-fig.org/psr/psr-6/) interface `Psr\Cache\CacheItemPoolInterface` over your library
 2. or choose one from existing adapters [php-cache](https://github.com/php-cache)
 3. Choose between `CacheManager` and `CacheManagerSubject`
@@ -207,11 +211,13 @@ API&SPI
 -------
 ### API
 API includes:
+
 * interfaces inside [Api](src/Api) directory
-* all Exceptions
+* all [Exceptions](src/Exception)
 
 ### SPI
 SPI includes:
+
 * interfaces inside [Spi](src/Spi) directory
 * events: `beforeSave`, `afterSave`, `beforeSearch`, `afterSearch`, `beforeDelete`, `afterDelete`
 
@@ -230,6 +236,7 @@ To configure developing environment please:
 
 ### Backward compatibility
 Please follow steps bellow to keep Backward compatibility:
+
 * keep stable API & SPI SHOULD
 * keep stable constructor injection signature
 * keep stable throwing Exceptions type
