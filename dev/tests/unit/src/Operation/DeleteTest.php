@@ -70,7 +70,7 @@ class deleteTest extends BaseTest
     /**
      * @expectedException \Picamator\CacheManager\Exception\InvalidCacheKeyException
      */
-    function testDeleteKeyCacheSearch()
+    public function testDeleteKeyCacheSearch()
     {
         $cacheKeyList = [1 =>'internal_customer_1'];
 
