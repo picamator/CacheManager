@@ -105,14 +105,16 @@ class SearchTest extends BaseTest
         $this->operation->search($this->searchCriteriaMock);
     }
 
-    public function testHasNotInCacheSearch()
+    /**
+     * @dataProvider providerHasNotCacheSearch
+     *
+     * @param string        $cacheKey
+     * @param int           $id
+     * @param array         $fieldList
+     * @param array|null    $data
+     */
+    public function testHasNotCacheSearch(string $cacheKey, int $id, array $fieldList, array $data = null)
     {
-        $cacheKey = 'internal_customer_1';
-        $idName = 'id';
-        $fieldList = ['id', 'name', 'address'];
-        $id = 1;
-        $data = [$idName => $id, 'name' => 'Sergii'];
-
         // cache generator mock
         $this->keyGeneratorMock->expects($this->once())
             ->method('generate')
@@ -148,7 +150,7 @@ class SearchTest extends BaseTest
 
         $this->searchResultFactoryMock->expects($this->once())
             ->method('create')
-            ->with($this->equalTo([]), $this->equalTo([$data[$idName]]))
+            ->with($this->equalTo([]), $this->equalTo([$id]))
             ->willReturn($searchResultMock);
 
         $this->operation->search($this->searchCriteriaMock);
@@ -157,7 +159,7 @@ class SearchTest extends BaseTest
     /**
      * @expectedException \Picamator\CacheManager\Exception\InvalidCacheKeyException
      */
-    function testInvalidKeyCacheSearch()
+    public function testInvalidKeyCacheSearch()
     {
         $cacheKey = 'internal_customer_1';
         $id = 1;
@@ -189,5 +191,22 @@ class SearchTest extends BaseTest
             ->method('create');
 
         $this->operation->search($this->searchCriteriaMock);
+    }
+
+    public function providerHasNotCacheSearch()
+    {
+        return [
+            [
+                'internal_customer_1',
+                1,
+                ['id', 'name', 'address'],
+                ['id' => 1, 'name' => 'Sergii']
+            ], [
+                'internal_customer_1',
+                1,
+                ['id', 'name', 'address'],
+                null
+            ]
+        ];
     }
 }

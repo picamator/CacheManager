@@ -22,10 +22,9 @@ class ObjectManagerTest extends BaseTest
      *
      * @param array $arguments
      */
-    public function testCreate($arguments)
+    public function testCreate(array $arguments)
     {
         $className = '\DateTime';
-        $arguments = ['now'];
 
         $actual = $this->objectManager->create($className, $arguments);
         $this->assertInstanceOf($className, $actual);

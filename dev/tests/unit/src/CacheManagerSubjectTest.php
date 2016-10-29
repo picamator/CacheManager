@@ -224,4 +224,26 @@ class CacheManagerSubjectTest extends BaseTest
         $this->cacheManagerSubject->attach($name, $this->observerMock);
         $this->cacheManagerSubject->notify($event);
     }
+
+    public function testDetach()
+    {
+        $name = 'test';
+
+        // event mock
+        $event = $this->getMockBuilder('Picamator\CacheManager\Spi\Data\EventInterface')
+            ->getMock();
+
+        $event->expects($this->once())
+            ->method('getName')
+            ->willReturn($name);
+
+        // never
+        $this->observerMock->expects($this->never())
+            ->method('update');
+
+        $this->cacheManagerSubject->attach($name, $this->observerMock);
+        $this->cacheManagerSubject->detach($name, $this->observerMock);
+
+        $this->cacheManagerSubject->notify($event);
+    }
 }
