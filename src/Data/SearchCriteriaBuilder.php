@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Data;
 
@@ -8,7 +9,7 @@ use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 use Picamator\CacheManager\Api\ObjectManagerInterface;
 
 /**
- * Building search criteria object
+ * Building search criteria object.
  *
  * @codeCoverageIgnore
  */
@@ -36,15 +37,15 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
     ];
 
     /**
-     * @param ObjectManagerInterface    $objectManager
-     * @param string                    $className
+     * @param ObjectManagerInterface $objectManager
+     * @param string                 $className
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
         string $className = 'Picamator\CacheManager\Data\SearchCriteria'
     ) {
-       $this->objectManager = $objectManager;
-       $this->className = $className;
+        $this->objectManager = $objectManager;
+        $this->className = $className;
     }
 
     /**
@@ -110,7 +111,7 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
     }
 
     /**
-     * Clean data
+     * Clean data.
      */
     private function cleanData()
     {

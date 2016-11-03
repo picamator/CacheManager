@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Operation;
 
@@ -11,7 +12,7 @@ use Picamator\CacheManager\Exception\InvalidArgumentException;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
- * Save operation
+ * Save operation.
  */
 class Save implements SaveInterface
 {
@@ -59,7 +60,7 @@ class Save implements SaveInterface
         }
 
         // save
-        foreach($data as $item) {
+        foreach ($data as $item) {
             $cacheKey = $this->keyGenerator->generate($item[$idName], $searchCriteria);
             $cacheItem = $this->cacheItemFactory->create($cacheKey, $item);
 
@@ -70,10 +71,10 @@ class Save implements SaveInterface
     }
 
     /**
-     * Validate data structure: array of arrays with presented correct id
+     * Validate data structure: array of arrays with presented correct id.
      *
-     * @param string    $idName
-     * @param array     $data
+     * @param string $idName
+     * @param array  $data
      *
      * @return bool _true_ for valid and _false_ otherwise
      */

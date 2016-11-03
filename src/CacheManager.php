@@ -1,18 +1,18 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager;
 
 use Picamator\CacheManager\Api\CacheManagerInterface;
-use Picamator\CacheManager\Api\Data\SearchResultInterface;
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
-
+use Picamator\CacheManager\Api\Data\SearchResultInterface;
+use Picamator\CacheManager\Api\Operation\DeleteInterface;
 use Picamator\CacheManager\Api\Operation\SaveInterface;
 use Picamator\CacheManager\Api\Operation\SearchInterface;
-use Picamator\CacheManager\Api\Operation\DeleteInterface;
 
 /**
- * Facade over operations: _save_, _search_, and _invalidate_
+ * Facade over operations: _save_, _search_, and _invalidate_.
  *
  * It's better to use Proxy over operations via DI for performance boost
  */
@@ -34,9 +34,9 @@ class CacheManager implements CacheManagerInterface
     private $operationDelete;
 
     /**
-     * @param SaveInterface         $operationSave
-     * @param SearchInterface       $operationSearch
-     * @param DeleteInterface       $operationDelete
+     * @param SaveInterface   $operationSave
+     * @param SearchInterface $operationSearch
+     * @param DeleteInterface $operationDelete
      */
     public function __construct(
         SaveInterface $operationSave,

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Cache;
 
@@ -7,15 +8,16 @@ use Picamator\CacheManager\Api\Cache\KeyGeneratorInterface;
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 
 /**
- * Create cache key based on SearchCriteriaInterface
+ * Create cache key based on SearchCriteriaInterface.
  */
 class KeyGenerator implements KeyGeneratorInterface
 {
     /**
      * @todo use private constant in php 7.1
+     *
      * @var string
      */
-    private static $keySeparator = '_' ;
+    private static $keySeparator = '_';
 
     /**
      * {@inheritdoc}
@@ -25,7 +27,7 @@ class KeyGenerator implements KeyGeneratorInterface
         $data = [
             $searchCriteria->getContextName(),
             $searchCriteria->getEntityName(),
-            $id
+            $id,
         ];
         $data = array_filter($data);
         $result = implode(self::$keySeparator, $data);
