@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.0.4 (2016-11-03)
+------------------
+* Added .editorconfig
+* Added support configuration to composer.json
+* Put PHP7 ready badge
+* Integrated Styleci
+
 1.0.3 (2016-10-29)
 ------------------
 * Fixed readme style
