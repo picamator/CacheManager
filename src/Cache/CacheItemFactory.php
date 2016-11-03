@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Cache;
 
@@ -8,7 +9,7 @@ use Picamator\CacheManager\Api\ObjectManagerInterface;
 use Psr\Cache\CacheItemInterface;
 
 /**
- * Factory to build CacheItem's objects
+ * Factory to build CacheItem's objects.
  */
 class CacheItemFactory implements CacheItemFactoryInterface
 {
@@ -23,8 +24,8 @@ class CacheItemFactory implements CacheItemFactoryInterface
     private $className;
 
     /**
-     * @param ObjectManagerInterface    $objectManager
-     * @param string                    $className
+     * @param ObjectManagerInterface $objectManager
+     * @param string                 $className
      */
     public function __construct(
         ObjectManagerInterface $objectManager,

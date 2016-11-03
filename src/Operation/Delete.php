@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Operation;
 
@@ -11,7 +12,7 @@ use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException as PsrCacheInvalidArgumentException;
 
 /**
- * Delete operation
+ * Delete operation.
  */
 class Delete implements DeleteInterface
 {
@@ -26,8 +27,8 @@ class Delete implements DeleteInterface
     private $cacheItemPool;
 
     /**
-     * @param KeyGeneratorInterface     $keyGenerator
-     * @param CacheItemPoolInterface    $cacheItemPool
+     * @param KeyGeneratorInterface  $keyGenerator
+     * @param CacheItemPoolInterface $cacheItemPool
      */
     public function __construct(
         KeyGeneratorInterface $keyGenerator,

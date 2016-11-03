@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager;
 
@@ -12,7 +13,7 @@ use Picamator\CacheManager\Spi\ObserverInterface;
 use Picamator\CacheManager\Spi\SubjectInterface;
 
 /**
- * Subject as a part observer pattern implementation
+ * Subject as a part observer pattern implementation.
  */
 class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
 {
@@ -178,13 +179,13 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
     {
         $observerList = $this->getObserverList($event->getName());
         /** @var \Picamator\CacheManager\Spi\ObserverInterface $item */
-        foreach($observerList as $item) {
+        foreach ($observerList as $item) {
             $item->update($this, $event);
         }
     }
 
     /**
-     * Retrieve observer list
+     * Retrieve observer list.
      *
      * @param string $name
      *
@@ -200,7 +201,7 @@ class CacheManagerSubject implements CacheManagerInterface, SubjectInterface
     }
 
     /**
-     * Check whatever observer container has at least one observer
+     * Check whatever observer container has at least one observer.
      *
      * @param string $name
      *
