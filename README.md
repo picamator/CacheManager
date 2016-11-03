@@ -2,8 +2,8 @@ CacheManager
 ============
 
 [![PHP 7 ready](http://php7ready.timesplinter.ch/picamator/CacheManager/badge.svg)](https://travis-ci.org/picamator/CacheManager)
-[![License](https://poser.pugx.org/picamator/cachemanager/license.svg)](https://packagist.org/packages/picamator/cachemanager)
 [![Latest Stable Version](https://poser.pugx.org/picamator/cachemanager/v/stable.svg)](https://packagist.org/packages/picamator/cachemanager)
+[![License](https://poser.pugx.org/picamator/cachemanager/license.svg)](https://packagist.org/packages/picamator/cachemanager)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca/mini.png)](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca)
 
 Master
