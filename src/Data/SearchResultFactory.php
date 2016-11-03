@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Data;
 
@@ -8,7 +9,7 @@ use Picamator\CacheManager\Api\Data\SearchResultInterface;
 use Picamator\CacheManager\Api\ObjectManagerInterface;
 
 /**
- * Factory to build SearchResult's objects
+ * Factory to build SearchResult's objects.
  *
  * @codeCoverageIgnore
  */
@@ -25,8 +26,8 @@ class SearchResultFactory implements SearchResultFactoryInterface
     private $className;
 
     /**
-     * @param ObjectManagerInterface    $objectManager
-     * @param string                    $className
+     * @param ObjectManagerInterface $objectManager
+     * @param string                 $className
      */
     public function __construct(
         ObjectManagerInterface $objectManager,

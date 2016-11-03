@@ -50,3 +50,6 @@ More information is [here](https://confluence.jetbrains.com/display/PhpStorm/Wor
 4. Set "Default configuration file": /CacheManager/dev/tests/unit/phpunit.xml.dist
 
 More information is [here](https://confluence.jetbrains.com/display/PhpStorm/Running+PHPUnit+tests+over+SSH+on+a+remote+server+with+PhpStorm).
+
+### IDE style configuration
+Please install [EditorConfig](https://www.jetbrains.com/help/webstorm/2016.2/configuring-code-style.html) plugin to import editor's configuration.

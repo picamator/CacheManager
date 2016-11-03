@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Data;
 
@@ -10,7 +11,7 @@ use Picamator\CacheManager\Spi\Data\EventBuilderInterface;
 use Picamator\CacheManager\Spi\Data\EventInterface;
 
 /**
- * Building Event's objects
+ * Building Event's objects.
  *
  * @codeCoverageIgnore
  */
@@ -37,8 +38,8 @@ class EventBuilder implements EventBuilderInterface
     ];
 
     /**
-     * @param ObjectManagerInterface    $objectManager
-     * @param string                    $className
+     * @param ObjectManagerInterface $objectManager
+     * @param string                 $className
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
@@ -113,7 +114,7 @@ class EventBuilder implements EventBuilderInterface
     }
 
     /**
-     * Clean data
+     * Clean data.
      */
     private function cleanData()
     {

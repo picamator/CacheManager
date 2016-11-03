@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Data;
 
@@ -8,7 +9,7 @@ use Picamator\CacheManager\Api\Data\SearchResultInterface;
 use Picamator\CacheManager\Spi\Data\EventInterface;
 
 /**
- * Event data interface
+ * Event data interface.
  *
  * It's send within rising event
  *
@@ -37,10 +38,10 @@ class Event implements EventInterface
     private $operationResult;
 
     /**
-     * @param string                                $name
-     * @param SearchCriteriaInterface               $searchCriteria
-     * @param array                                 $argumentList
-     * @param null|\stdClass|SearchResultInterface   $operationResult
+     * @param string                               $name
+     * @param SearchCriteriaInterface              $searchCriteria
+     * @param array                                $argumentList
+     * @param null|\stdClass|SearchResultInterface $operationResult
      */
     public function __construct(
         string $name,
@@ -48,10 +49,10 @@ class Event implements EventInterface
         array $argumentList,
         $operationResult
     ) {
-        $this->name             = $name;
-        $this->searchCriteria   = $searchCriteria;
-        $this->argumentList     = $argumentList;
-        $this->operationResult  = $operationResult;
+        $this->name = $name;
+        $this->searchCriteria = $searchCriteria;
+        $this->argumentList = $argumentList;
+        $this->operationResult = $operationResult;
     }
 
     /**

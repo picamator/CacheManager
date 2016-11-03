@@ -1,0 +1,9 @@
+preset: recommended
+
+risky: false
+
+finder:
+  path:
+    - "src"
+  depth:
+    - "< 3"

@@ -1,12 +1,13 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Data;
 
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
 
 /**
- * Abstraction over search query
+ * Abstraction over search query.
  *
  * @codeCoverageIgnore
  */
@@ -38,11 +39,11 @@ class SearchCriteria implements SearchCriteriaInterface
     private $idName;
 
     /**
-     * @param string        $entityName
-     * @param array         $idList
-     * @param array         $fieldList
-     * @param string        $idName
-     * @param string|null   $contextName
+     * @param string      $entityName
+     * @param array       $idList
+     * @param array       $fieldList
+     * @param string      $idName
+     * @param string|null $contextName
      */
     public function __construct(
         string $entityName,
@@ -51,11 +52,11 @@ class SearchCriteria implements SearchCriteriaInterface
         string $idName,
         string $contextName = null
     ) {
-        $this->entityName   = $entityName;
-        $this->idList       = $idList;
-        $this->fieldList    = $fieldList;
-        $this->idName       = $idName;
-        $this->contextName  = $contextName;
+        $this->entityName = $entityName;
+        $this->idList = $idList;
+        $this->fieldList = $fieldList;
+        $this->idName = $idName;
+        $this->contextName = $contextName;
     }
 
     /**

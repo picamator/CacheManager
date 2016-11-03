@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Picamator\CacheManager\Operation;
 
@@ -9,12 +10,12 @@ use Picamator\CacheManager\Api\Data\SearchResultFactoryInterface;
 use Picamator\CacheManager\Api\Data\SearchResultInterface;
 use Picamator\CacheManager\Api\Operation\SearchInterface;
 use Picamator\CacheManager\Exception\InvalidCacheKeyException;
+use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException as PsrCacheInvalidArgumentException;
-use Psr\Cache\CacheItemInterface;
 
 /**
- * Search operation
+ * Search operation.
  */
 class Search implements SearchInterface
 {
@@ -34,9 +35,9 @@ class Search implements SearchInterface
     private $searchResultFactory;
 
     /**
-     * @param KeyGeneratorInterface         $keyGenerator
-     * @param CacheItemPoolInterface        $cacheItemPool
-     * @param SearchResultFactoryInterface  $searchResultFactory
+     * @param KeyGeneratorInterface        $keyGenerator
+     * @param CacheItemPoolInterface       $cacheItemPool
+     * @param SearchResultFactoryInterface $searchResultFactory
      */
     public function __construct(
         KeyGeneratorInterface $keyGenerator,
@@ -73,10 +74,10 @@ class Search implements SearchInterface
     }
 
     /**
-     * Has valid cache item
+     * Has valid cache item.
      *
-     * @param CacheItemInterface    $cacheItem
-     * @param array                 $fieldList
+     * @param CacheItemInterface $cacheItem
+     * @param array              $fieldList
      *
      * @return bool
      */
@@ -93,13 +94,13 @@ class Search implements SearchInterface
     }
 
     /**
-     * Retrieve cache data generator
+     * Retrieve cache data generator.
      *
      * @param SearchCriteriaInterface $searchCriteria
      *
-     * @return void
-     *
      * @throws InvalidCacheKeyException
+     *
+     * @return void
      */
     private function getCacheItemGenerator(SearchCriteriaInterface $searchCriteria)
     {

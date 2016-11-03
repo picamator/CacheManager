@@ -1,7 +1,7 @@
 {
     "name": "picamator/cachemanager",
     "description": "Wrapper over 3-rd party cache libraries to optimise saving API/'s search result",
-    "keywords": ["cache", "management", "wrapper"],
+    "keywords": ["cache", "management", "wrapper", "optimization"],
     "license": "MIT",
     "authors": [
         {
@@ -9,6 +9,9 @@
             "email": "picamator@gmail.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/picamator/CacheManager/issues"
+    },
     "autoload": {
         "psr-4": {
 			"Picamator\\CacheManager\\": "src/"

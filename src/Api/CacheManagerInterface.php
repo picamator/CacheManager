@@ -1,4 +1,5 @@
 <?php
+
 namespace Picamator\CacheManager\Api;
 
 use Picamator\CacheManager\Api\Data\SearchCriteriaInterface;
@@ -6,41 +7,41 @@ use Picamator\CacheManager\Api\Data\SearchResultInterface;
 use Picamator\CacheManager\Exception\InvalidCacheKeyException;
 
 /**
- * Facade over operations: _save_, _search_, and _invalidate_
+ * Facade over operations: _save_, _search_, and _invalidate_.
  *
  * It's better to use Proxy over operations via DI for performance boost
  */
-interface CacheManagerInterface 
+interface CacheManagerInterface
 {
-	/**
-	 * Save data to Cache
-	 * 
-	 * @param SearchCriteriaInterface 	$searchCriteria
-	 * @param array 					$data
-	 * 
-	 * @return bool _true_ for success save or _false_ otherwise
-	 */
-	public function save(SearchCriteriaInterface $searchCriteria, array $data) : bool;
-	
-	/**
-	 * Search data from Cache
-	 * 
-	 * @param SearchCriteriaInterface $searchCriteria
-	 * 
-	 * @return SearchResultInterface
+    /**
+     * Save data to Cache.
      *
-     * @throws InvalidCacheKeyException
-	 */
-	public function search(SearchCriteriaInterface $searchCriteria) : SearchResultInterface;
-	
-	/**
-	 * Delete items from Cache
-	 * 
-	 * @param SearchCriteriaInterface 	$searchCriteria
+     * @param SearchCriteriaInterface $searchCriteria
+     * @param array                   $data
      *
      * @return bool _true_ for success save or _false_ otherwise
+     */
+    public function save(SearchCriteriaInterface $searchCriteria, array $data) : bool;
+
+    /**
+     * Search data from Cache.
+     *
+     * @param SearchCriteriaInterface $searchCriteria
      *
      * @throws InvalidCacheKeyException
-	 */
-	public function delete(SearchCriteriaInterface $searchCriteria) : bool ;
+     *
+     * @return SearchResultInterface
+     */
+    public function search(SearchCriteriaInterface $searchCriteria) : SearchResultInterface;
+
+    /**
+     * Delete items from Cache.
+     *
+     * @param SearchCriteriaInterface $searchCriteria
+     *
+     * @throws InvalidCacheKeyException
+     *
+     * @return bool _true_ for success save or _false_ otherwise
+     */
+    public function delete(SearchCriteriaInterface $searchCriteria) : bool;
 }
