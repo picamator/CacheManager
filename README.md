@@ -2,18 +2,20 @@ CacheManager
 ============
 
 [![PHP 7 ready](http://php7ready.timesplinter.ch/picamator/CacheManager/badge.svg)](https://travis-ci.org/picamator/CacheManager)
-[![Latest Stable Version](https://poser.pugx.org/picamator/cachemanager/v/stable.svg)](https://packagist.org/packages/picamator/cachemanager)
 [![License](https://poser.pugx.org/picamator/cachemanager/license.svg)](https://packagist.org/packages/picamator/cachemanager)
+[![Latest Stable Version](https://poser.pugx.org/picamator/cachemanager/v/stable.svg)](https://packagist.org/packages/picamator/cachemanager)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca/mini.png)](https://insight.sensiolabs.com/projects/8b533637-392d-4be8-8204-77ff22f460ca)
 
 Master
 ------
 [![Build Status](https://travis-ci.org/picamator/CacheManager.svg?branch=master)](https://travis-ci.org/picamator/CacheManager)
+[![StyleCI](https://styleci.io/repos/68189409/shield?branch=master)](https://styleci.io/repos/68189409)
 [![Coverage Status](https://coveralls.io/repos/github/picamator/CacheManager/badge.svg?branch=master)](https://coveralls.io/github/picamator/CacheManager?branch=master)
 
 Dev
 ---
 [![Build Status](https://travis-ci.org/picamator/CacheManager.svg?branch=dev)](https://travis-ci.org/picamator/CacheManager)
+[![StyleCI](https://styleci.io/repos/68189409/shield?branch=dev)](https://styleci.io/repos/68189409)
 [![Coverage Status](https://coveralls.io/repos/github/picamator/CacheManager/badge.svg?branch=dev)](https://coveralls.io/github/picamator/CacheManager?branch=dev)
 
 CacheManager is an application providing wrapper over 3-rd party cache libraries optimizing for saving RESTful API's or SQL search results.
