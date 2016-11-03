@@ -6,7 +6,7 @@ CHANGELOG
 * Added .editorconfig
 * Added support configuration to composer.json
 * Put PHP7 ready badge
-* Integrated Styleci
+* Integrated StyleCI
 
 1.0.3 (2016-10-29)
 ------------------
