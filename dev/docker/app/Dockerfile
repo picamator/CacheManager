@@ -16,8 +16,8 @@ RUN apt-get -y install graphviz
 RUN apt-get -y install git
 
 # composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+RUN php -r "file_put_contents('composer-setup.php', file_get_contents('https://getcomposer.org/installer'));"
+RUN php -r "if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
@@ -41,3 +41,6 @@ CMD ["/usr/sbin/sshd", "-D"]
 # volume
 RUN mkdir /CacheManager
 VOLUME /CacheManager
+
+# workdir
+WORKDIR /CacheManager
