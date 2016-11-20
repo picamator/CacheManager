@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.0.5 (2016-11-21)
+------------------
+* Updated Docker's readme
+* Updated Dockerfile: workdir, composer installation
+
 1.0.4 (2016-11-03)
 ------------------
 * Added .editorconfig
