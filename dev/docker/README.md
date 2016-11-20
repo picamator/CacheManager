@@ -27,7 +27,7 @@ Before start please be sure that was installed:
 1. Run command `sudo docker login`
 2. Run command `sudo docker pull picamator/cachemanager`
 3. Check images `sudo docker images`
-4. Run container `sudo docker run -d -p 2222:22 -v ~/{project-path/CacheManager:/CacheManager -t picamator/cachemanager`
+4. Run container `sudo docker run -d -p 2222:22 -v ~/{project-path}/CacheManager:/CacheManager -t picamator/cachemanager`
 5. Check container by executing command `sudo docker ps`
 
 SSH
